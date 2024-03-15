@@ -3,27 +3,22 @@ import { Link } from 'react-router-dom';
 import { FaRegMoon, FaRegSun } from 'react-icons/fa';
 
 const Nav = () => {
-  const [currentTheme, setCurrentTheme] = useState('smartSipDark');
+  const [currentTheme, setCurrentTheme] = useState(
+    localStorage.getItem('theme') || 'smartSipDark'
+  );
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem('theme');
-    if (!storedTheme) {
-      localStorage.setItem('theme', currentTheme);
-    } else {
-      setCurrentTheme(storedTheme);
-    }
     document.documentElement.setAttribute('data-theme', currentTheme);
-  }, []);
+    localStorage.setItem('theme', currentTheme);
+  }, [currentTheme]);
 
   const handleThemeChange = (event) => {
     const newTheme = event.target.checked ? 'smartSipDark' : 'smartSipLight';
     setCurrentTheme(newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
   };
 
   return (
-    <div className='navbar bg-base-100'>
+    <div className='navbar bg-base-100 font-main font-medium'>
       <div className='navbar-start'>
         <div className='dropdown'>
           <div tabIndex={0} role='button' className='btn btn-ghost lg:hidden'>
@@ -60,7 +55,7 @@ const Nav = () => {
             </li>
           </ul>
         </div>
-        <Link to='/' className='btn btn-ghost text-xl'>
+        <Link to='/' className='btn btn-ghost text-2xl font-header'>
           SmartSip
         </Link>
       </div>
@@ -84,7 +79,7 @@ const Nav = () => {
         <label className='swap swap-rotate mr-4'>
           <input
             type='checkbox'
-            className='theme-controller'
+            className='theme-controller mr-3'
             onChange={handleThemeChange}
             checked={currentTheme === 'smartSipDark'}
           />
@@ -95,7 +90,7 @@ const Nav = () => {
             <FaRegMoon className='swap-off fill-current w-7 h-7' />
           )}
         </label>
-        <a className='btn'>Login</a>
+        <a className='btn mr-2'>Login</a>
       </div>
     </div>
   );
