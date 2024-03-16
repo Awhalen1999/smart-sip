@@ -1,6 +1,6 @@
 import React from 'react';
+import { createRoot } from 'react-dom/client';
 import './index.css';
-import { createRoot } from 'react-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/home/HomePage';
 import BartenderPage from './pages/bartender/BartenderPage';
@@ -9,7 +9,10 @@ import SavedRecipes from './pages/saved-recipes/SavedRecipes';
 import PopularRecipes from './pages/popular-recipes/PopularRecipes';
 import Nav from './Nav';
 
-createRoot(document.getElementById('root')).render(
+const root = document.getElementById('root');
+if (!root) throw new Error('No root element found');
+
+createRoot(root).render(
   <React.StrictMode>
     <Router>
       <Nav />
