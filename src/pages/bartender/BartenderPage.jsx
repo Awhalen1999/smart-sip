@@ -52,120 +52,125 @@ const AIBartender = () => {
   };
 
   return (
-    <div className='font-space'>
-      <div
-        className='flex h-screen w-screen p-6 pt-12 items-start justify-center gap-1'
-        style={{
-          backgroundImage: `url(${BartenderInfo[bartender].background})`,
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-        }}
-      >
-        {/* bartender section */}
-        <div className='w-1/4 h-full flex flex-col items-start p-2.5 bg-black bg-opacity-85 rounded-lg border border-secondary border-1 mr-1'>
-          <div className=' w-full h-10 flex flex-row justify-start items-center text-xl font-bold text-left text-white'>
-            Choose a bartender
-          </div>
-          {/* Profiles */}
-          <div className='w-full h-full overflow-auto scrollbar scrollbar-thumb-gray-500 scrollbar-track-gray-200 scrollbar-thin'>
-            {bartenders.map((bartenderKey) => (
-              <div
-                key={bartenderKey}
-                className='w-full h-22 bg-base rounded flex my-1'
-              >
-                <div className='avatar flex-shrink-0'>
-                  <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
-                    <img
-                      src={BartenderInfo[bartenderKey].picture}
-                      alt={bartenderKey}
-                    />
-                  </div>
-                </div>
-                <div className='flex-grow flex flex-col justify-center items-start space-y-2 ml-4'>
-                  <h3 className='text-white'>{bartenderKey}</h3>
-                  <button
-                    onClick={() => setBartender(bartenderKey)}
-                    className='btn btn-primary'
-                  >
-                    Select
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        {/* Chat section */}
-        <div className='w-3/4 h-full flex flex-col justify-start items-start p-2.5 bg-black bg-opacity-75 rounded-lg border border-secondary border-1 ml-1 overflow-auto scrollbar scrollbar-thumb-gray-500 scrollbar-track-gray-200 scrollbar-thin'>
-          <h2 className='w-full h-10 flex flex-row justify-start items-center text-xl font-bold text-left text-white'>
-            AI Bartender ({bartender})
-          </h2>
-          <div className='w-full h-25 flex flex-col justify-start items-start mt-2'>
-            <div className='flex items-center'>
-              <div className='avatar flex-shrink-0'>
-                <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
-                  <img src={BartenderInfo[bartender].picture} />
-                </div>
-              </div>
-              <div className='chat chat-start'>
-                <div className='chat-bubble chat-bubble-accent font-tech'>
-                  {initialPrompt}
-                </div>
-              </div>
-            </div>
-          </div>
-          <textarea
-            value={drinkDescription}
-            onChange={(e) => setDrinkDescription(e.target.value)}
-            cols='30'
-            rows='2'
-            className='textarea textarea-primary w-1/2 mt-5'
-            placeholder='Describe a drink (optional):'
-          />
-          <textarea
-            value={ingredients}
-            onChange={(e) => setIngredients(e.target.value)}
-            cols='30'
-            rows='2'
-            className='textarea textarea-primary w-1/2 mt-5'
-            placeholder='Available ingredients (optional):'
-          />
-          <div className='flex items-start'>
-            <button
-              onClick={() => handleSubmit(false)}
-              className='btn btn-primary mt-5 mr-2'
-            >
-              Make this drink
-            </button>
-            <button
-              onClick={() => handleSubmit(true)}
-              className='btn btn-primary mt-5 ml-2'
-            >
-              Random drink / Quick Start
-            </button>
-          </div>
-          {/* AI recipe returned: */}
-          {isLoading || recipe ? (
-            <div className='w-full h-25 flex flex-col justify-start items-start mt-5'>
-              <div className='flex items-end'>
-                <div className='avatar flex-shrink-0'>
+    <div
+      className='flex'
+      style={{
+        backgroundImage: `url(${BartenderInfo[bartender].background})`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      {/* DaisyUI drawer */}
+      <div className='drawer lg:drawer-open'>
+        <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
+        <div className='drawer-content flex flex-col items-center justify-center p-2'>
+          {/* Chat section */}
+          <div className='flex-grow w-full h-full flex flex-col p-6 bg-black bg-opacity-75 rounded-lg border border-secondary border-1 overflow-auto'>
+            <h2 className='text-xl font-bold text-white'>
+              AI Bartender ({bartender})
+            </h2>
+            <div className='mt-2'>
+              <div className='flex items-center'>
+                <div className='avatar'>
                   <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
                     <img src={BartenderInfo[bartender].picture} />
                   </div>
                 </div>
                 <div className='chat chat-start'>
-                  <div className='chat-bubble chat-bubble-accent font-tech flex items-center justify-center'>
-                    {isLoading ? (
-                      <span className='loading loading-dots loading-lg'></span>
-                    ) : recipe ? (
-                      recipe
-                    ) : null}
+                  <div className='chat-bubble chat-bubble-accent font-tech'>
+                    {initialPrompt}
                   </div>
                 </div>
               </div>
             </div>
-          ) : null}
+            <textarea
+              value={drinkDescription}
+              onChange={(e) => setDrinkDescription(e.target.value)}
+              cols='30'
+              rows='2'
+              className='textarea textarea-primary w-1/2 mt-5'
+              placeholder='Describe a drink (optional):'
+            />
+            <textarea
+              value={ingredients}
+              onChange={(e) => setIngredients(e.target.value)}
+              cols='30'
+              rows='2'
+              className='textarea textarea-primary w-1/2 mt-5'
+              placeholder='Available ingredients (optional):'
+            />
+            <div className='flex items-start mt-5'>
+              <button
+                onClick={() => handleSubmit(false)}
+                className='btn btn-primary mr-2'
+              >
+                Make this drink
+              </button>
+              <button
+                onClick={() => handleSubmit(true)}
+                className='btn btn-primary ml-2'
+              >
+                Random drink / Quick Start
+              </button>
+            </div>
+            {/* AI recipe returned: */}
+            {isLoading || recipe ? (
+              <div className='mt-5'>
+                <div className='flex items-end'>
+                  <div className='avatar'>
+                    <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
+                      <img src={BartenderInfo[bartender].picture} />
+                    </div>
+                  </div>
+                  <div className='chat chat-start'>
+                    <div className='chat-bubble chat-bubble-accent font-tech flex items-center justify-center'>
+                      {isLoading ? (
+                        <span className='loading loading-dots loading-lg'></span>
+                      ) : (
+                        recipe
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+          </div>
+          {/* end of page content */}
+          <label
+            htmlFor='my-drawer-2'
+            className='btn btn-primary drawer-button lg:hidden'
+          >
+            Open drawer
+          </label>
         </div>
-        {/* end of chat section */}
+        <div className='drawer-side'>
+          <label
+            htmlFor='my-drawer-2'
+            aria-label='close sidebar'
+            className='drawer-overlay'
+          ></label>
+          <ul className='menu p-4 w-80 min-h-full bg-base-200 text-base-content'>
+            {/* Sidebar content here */}
+            <li>
+              <a>Ingredients</a>
+            </li>
+            <li>
+              <a>My Recipes</a>
+            </li>
+            <li>
+              <a>Popular Drinks</a>
+            </li>
+            <li>
+              <div className='indicator'>
+                <span className='indicator-item badge badge-info'>new</span>
+                <a>Bartender Persona</a>
+              </div>
+            </li>
+            <li>
+              <a>Settings</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );
