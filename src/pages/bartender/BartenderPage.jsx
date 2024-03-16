@@ -1,21 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import BartenderInfo from './BartenderInfo';
 
-const BartenderPage = () => {
+const AIBartender = () => {
   const [drinkDescription, setDrinkDescription] = useState('');
   const [ingredients, setIngredients] = useState('');
   const [recipe, setRecipe] = useState('');
+  const [bartender, setBartender] = useState('Default');
   const [isLoading, setIsLoading] = useState(false);
 
-  const bartenderPersona =
-    "As an AI bartender, your role is to craft drink recipes based on the user's preferences. If the user lists available ingredients, incorporate them as appropriate. Feel free to omit ingredients that don't fit or may spoil the drink. If no ingredient list is provided, assume common ingredients are available. The user desires a brief description of the drink followed by a recipe breakdown. You're all about the cool vibes, always ready to mix up a drink with effortless style. You bring a laid-back attitude to the bar, but your passion for mixology shines through in every cocktail you create. Feel free to adapt your persona to match the user's vibe.";
+  const bartenders = Object.keys(BartenderInfo); // List of bartenders
+
+  const [initialPrompt, setInitialPrompt] = useState(
+    BartenderInfo[bartender].initialPrompt
+  );
+
+  useEffect(() => {
+    setInitialPrompt(BartenderInfo[bartender].initialPrompt);
+    setRecipe('');
+  }, [bartender]);
 
   const handleSubmit = async (quickStart = false) => {
     setIsLoading(true);
     const data = {
       model: 'gpt-3.5-turbo',
       messages: [
-        { role: 'system', content: bartenderPersona },
+        {
+          role: 'system',
+          content: BartenderInfo[bartender].persona,
+        },
         {
           role: 'user',
           content: quickStart
@@ -39,20 +52,63 @@ const BartenderPage = () => {
   };
 
   return (
-    <div className='drawer lg:drawer-open'>
-      <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
-      <div className='drawer-content'>
-        <div className='flex flex-col justify-start items-start p-2.5 bg-base-100 bg-opacity-75 overflow-auto scrollbar scrollbar-thumb-gray-500 scrollbar-track-gray-200 scrollbar-thin font-main'>
-          <h2 className='w-full h-10 flex flex-row justify-start items-center text-xl font-bold text-left text-base-content'>
-            AI Bartender
+    <div className='font-space'>
+      <div
+        className='flex h-screen w-screen p-6 pt-12 items-start justify-center gap-1'
+        style={{
+          backgroundImage: `url(${BartenderInfo[bartender].background})`,
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        {/* bartender section */}
+        <div className='w-1/4 h-full flex flex-col items-start p-2.5 bg-black bg-opacity-85 rounded-lg border border-secondary border-1 mr-1'>
+          <div className=' w-full h-10 flex flex-row justify-start items-center text-xl font-bold text-left text-white'>
+            Choose a bartender
+          </div>
+          {/* Profiles */}
+          <div className='w-full h-full overflow-auto scrollbar scrollbar-thumb-gray-500 scrollbar-track-gray-200 scrollbar-thin'>
+            {bartenders.map((bartenderKey) => (
+              <div
+                key={bartenderKey}
+                className='w-full h-22 bg-base rounded flex my-1'
+              >
+                <div className='avatar flex-shrink-0'>
+                  <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
+                    <img
+                      src={BartenderInfo[bartenderKey].picture}
+                      alt={bartenderKey}
+                    />
+                  </div>
+                </div>
+                <div className='flex-grow flex flex-col justify-center items-start space-y-2 ml-4'>
+                  <h3 className='text-white'>{bartenderKey}</h3>
+                  <button
+                    onClick={() => setBartender(bartenderKey)}
+                    className='btn btn-primary'
+                  >
+                    Select
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Chat section */}
+        <div className='w-3/4 h-full flex flex-col justify-start items-start p-2.5 bg-black bg-opacity-75 rounded-lg border border-secondary border-1 ml-1 overflow-auto scrollbar scrollbar-thumb-gray-500 scrollbar-track-gray-200 scrollbar-thin'>
+          <h2 className='w-full h-10 flex flex-row justify-start items-center text-xl font-bold text-left text-white'>
+            AI Bartender ({bartender})
           </h2>
-          {/* Rest of your page content here */}
           <div className='w-full h-25 flex flex-col justify-start items-start mt-2'>
             <div className='flex items-center'>
+              <div className='avatar flex-shrink-0'>
+                <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
+                  <img src={BartenderInfo[bartender].picture} />
+                </div>
+              </div>
               <div className='chat chat-start'>
                 <div className='chat-bubble chat-bubble-accent font-tech'>
-                  Hey there! I'm your AI bartender. What can I whip up for you
-                  today?
+                  {initialPrompt}
                 </div>
               </div>
             </div>
@@ -87,47 +143,32 @@ const BartenderPage = () => {
               Random drink / Quick Start
             </button>
           </div>
+          {/* AI recipe returned: */}
           {isLoading || recipe ? (
             <div className='w-full h-25 flex flex-col justify-start items-start mt-5'>
               <div className='flex items-end'>
+                <div className='avatar flex-shrink-0'>
+                  <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
+                    <img src={BartenderInfo[bartender].picture} />
+                  </div>
+                </div>
                 <div className='chat chat-start'>
                   <div className='chat-bubble chat-bubble-accent font-tech flex items-center justify-center'>
                     {isLoading ? (
                       <span className='loading loading-dots loading-lg'></span>
-                    ) : (
+                    ) : recipe ? (
                       recipe
-                    )}
+                    ) : null}
                   </div>
                 </div>
               </div>
             </div>
           ) : null}
         </div>
-        <label
-          htmlFor='my-drawer-2'
-          className='btn btn-primary drawer-button lg:hidden'
-        >
-          Open drawer
-        </label>
-      </div>
-      <div className='drawer-side'>
-        <label
-          htmlFor='my-drawer-2'
-          aria-label='close sidebar'
-          className='drawer-overlay'
-        ></label>
-        <ul className='menu p-4 w-80 min-h-full bg-base-200 text-base-content'>
-          {/* Sidebar content here */}
-          <li>
-            <a>Sidebar Item 1</a>
-          </li>
-          <li>
-            <a>Sidebar Item 2</a>
-          </li>
-        </ul>
+        {/* end of chat section */}
       </div>
     </div>
   );
 };
 
-export default BartenderPage;
+export default AIBartender;

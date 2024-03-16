@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(185, 185, 185, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(90, 90, 90, 0.9);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(90, 90, 90, 0.9);
+}
+
+@layer base {
+  body {
+    @apply overflow-x-hidden;
+  }
+}
