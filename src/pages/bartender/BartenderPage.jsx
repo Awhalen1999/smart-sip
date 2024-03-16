@@ -161,10 +161,7 @@ const AIBartender = () => {
               <a>Popular Drinks</a>
             </li>
             <li>
-              <div className='indicator'>
-                <span className='indicator-item badge badge-info'>new</span>
-                <a>Bartender Persona</a>
-              </div>
+              <a>Bartender Persona</a>
             </li>
             <li>
               <a>Settings</a>
