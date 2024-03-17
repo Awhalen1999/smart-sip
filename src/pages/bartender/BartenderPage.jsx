@@ -1,7 +1,20 @@
+//todo
+// 1. close drawer button
+// 2. fix open drawer button
+// 3. better icons
+// 4. page height
+// 5. settings page
+// 6. add links to side bar
+// 7. change outline color of bartender list for light theme
+// 8.
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import BartenderInfo from './BartenderInfo';
-import { MdMenuOpen } from 'react-icons/md';
+import { MdMenuOpen, MdPersonOutline } from 'react-icons/md';
+import { CiBoxList, CiReceipt } from 'react-icons/ci';
+import { FaRegStar } from 'react-icons/fa';
+import { IoSettingsOutline } from 'react-icons/io5';
 
 const AIBartender = () => {
   const [drinkDescription, setDrinkDescription] = useState('');
@@ -62,11 +75,11 @@ const AIBartender = () => {
       }}
     >
       {/* DaisyUI drawer */}
-      <div className='drawer lg:drawer-open'>
+      <div className='drawer lg:drawer-open font-main'>
         <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
-        <div className='drawer-content flex flex-col items-center justify-center p-2'>
+        <div className='drawer-content flex flex-col items-center justify-center'>
           {/* Chat section */}
-          <div className='flex-grow w-full h-full flex flex-col p-6 bg-black bg-opacity-75 rounded-lg border border-secondary border-1 overflow-auto'>
+          <div className='flex-grow w-full h-full flex flex-col p-6 bg-black bg-opacity-75 overflow-auto'>
             <h2 className='text-xl font-bold text-white'>
               AI Bartender ({bartender})
             </h2>
@@ -78,7 +91,7 @@ const AIBartender = () => {
                   </div>
                 </div>
                 <div className='chat chat-start'>
-                  <div className='chat-bubble chat-bubble-accent font-tech'>
+                  <div className='chat-bubble chat-bubble-accent'>
                     {initialPrompt}
                   </div>
                 </div>
@@ -153,21 +166,36 @@ const AIBartender = () => {
           <ul className='menu p-4 w-80 min-h-full bg-base-200 text-base-content'>
             {/* Sidebar content here */}
             <li>
-              <a>Ingredients</a>
+              <a>
+                <CiBoxList size={20} />
+                Ingredients
+              </a>
             </li>
             <li>
-              <a>My Recipes</a>
+              <a>
+                <CiReceipt size={20} />
+                My Recipes
+              </a>
             </li>
             <li>
-              <a>Popular Drinks</a>
+              <a>
+                <FaRegStar size={20} />
+                Popular Drinks
+              </a>
             </li>
             <li>
-              <a>Settings</a>
+              <a>
+                <IoSettingsOutline size={20} />
+                Settings
+              </a>
             </li>
             <li>
               <details className='dropdown'>
-                <summary>Parent</summary>
-                <ul className='p-2 bg-base-100 rounded-xl border'>
+                <summary>
+                  <MdPersonOutline size={20} />
+                  Bartenders
+                </summary>
+                <ul className='p-2 mt-1 bg-base-100 rounded-xl border'>
                   {bartenders.map((bartenderKey) => (
                     <li key={bartenderKey}>
                       <div className='w-full h-22 bg-base rounded-xl flex my-1'>
