@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import BartenderInfo from './BartenderInfo';
+import { MdMenuOpen } from 'react-icons/md';
 
 const AIBartender = () => {
   const [drinkDescription, setDrinkDescription] = useState('');
@@ -140,7 +141,7 @@ const AIBartender = () => {
             htmlFor='my-drawer-2'
             className='btn btn-primary drawer-button lg:hidden'
           >
-            Open drawer
+            <MdMenuOpen />
           </label>
         </div>
         <div className='drawer-side'>
@@ -161,10 +162,37 @@ const AIBartender = () => {
               <a>Popular Drinks</a>
             </li>
             <li>
-              <a>Bartender Persona</a>
+              <a>Settings</a>
             </li>
             <li>
-              <a>Settings</a>
+              <details className='dropdown'>
+                <summary>Parent</summary>
+                <ul className='p-2 bg-base-100 rounded-xl border'>
+                  {bartenders.map((bartenderKey) => (
+                    <li key={bartenderKey}>
+                      <div className='w-full h-22 bg-base rounded-xl flex my-1'>
+                        <div className='avatar flex-shrink-0'>
+                          <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
+                            <img
+                              src={BartenderInfo[bartenderKey].picture}
+                              alt={bartenderKey}
+                            />
+                          </div>
+                        </div>
+                        <div className='flex-grow flex flex-col justify-center items-start space-y-2 ml-4'>
+                          <h3 className='text-white'>{bartenderKey}</h3>
+                          <button
+                            onClick={() => setBartender(bartenderKey)}
+                            className='btn btn-primary'
+                          >
+                            Select
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </details>
             </li>
           </ul>
         </div>
