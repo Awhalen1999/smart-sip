@@ -4,7 +4,6 @@
 // 3. better icons
 // 4. page height
 // 5. settings page
-// 6. add links to side bar
 // 7. change outline color of bartender list for light theme
 // 8.
 
@@ -16,6 +15,7 @@ import { CiBoxList, CiReceipt } from 'react-icons/ci';
 import { FaRegStar } from 'react-icons/fa';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
+import BartenderSettings from './BartenderSettings';
 
 const AIBartender = () => {
   const [drinkDescription, setDrinkDescription] = useState('');
@@ -185,11 +185,28 @@ const AIBartender = () => {
               </Link>
             </li>
             <li>
-              <Link to='/settings'>
+              <button
+                onClick={() =>
+                  document.getElementById('my_modal_1').showModal()
+                }
+              >
                 <IoSettingsOutline size={20} />
                 Settings
-              </Link>
+              </button>
             </li>
+            <dialog id='my_modal_1' className='modal'>
+              <div className='modal-box'>
+                <h3 className='font-bold text-lg'>Settings</h3>
+                <BartenderSettings />{' '}
+                {/* Display the BartenderSettings component */}
+                <div className='modal-action'>
+                  <form method='dialog'>
+                    {/* if there is a button in form, it will close the modal */}
+                    <button className='btn'>Close</button>
+                  </form>
+                </div>
+              </div>
+            </dialog>
             <li>
               <details className='dropdown'>
                 <summary>
