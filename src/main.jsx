@@ -7,6 +7,7 @@ import BartenderPage from './pages/bartender/BartenderPage';
 import IngredientsPage from './pages/ingredients/IngredientsPage';
 import SavedRecipes from './pages/saved-recipes/SavedRecipes';
 import PopularRecipes from './pages/popular-recipes/PopularRecipes';
+import BartenderSettings from './pages/bartender/BartenderSettings';
 import Nav from './Nav';
 
 const root = document.getElementById('root');
@@ -22,6 +23,7 @@ createRoot(root).render(
         <Route path='/ingredients' element={<IngredientsPage />} />
         <Route path='/saved-recipes' element={<SavedRecipes />} />
         <Route path='/popular-recipes' element={<PopularRecipes />} />
+        <Route path='/settings' element={<BartenderSettings />} />
       </Routes>
     </Router>
   </React.StrictMode>

@@ -15,6 +15,7 @@ import { MdMenuOpen, MdPersonOutline } from 'react-icons/md';
 import { CiBoxList, CiReceipt } from 'react-icons/ci';
 import { FaRegStar } from 'react-icons/fa';
 import { IoSettingsOutline } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
 
 const AIBartender = () => {
   const [drinkDescription, setDrinkDescription] = useState('');
@@ -166,28 +167,28 @@ const AIBartender = () => {
           <ul className='menu p-4 w-80 min-h-full bg-base-200 text-base-content'>
             {/* Sidebar content here */}
             <li>
-              <a>
+              <Link to='/ingredients'>
                 <CiBoxList size={20} />
                 Ingredients
-              </a>
+              </Link>
             </li>
             <li>
-              <a>
+              <Link to='/saved-recipes'>
                 <CiReceipt size={20} />
                 My Recipes
-              </a>
+              </Link>
             </li>
             <li>
-              <a>
+              <Link to='/popular-recipes'>
                 <FaRegStar size={20} />
                 Popular Drinks
-              </a>
+              </Link>
             </li>
             <li>
-              <a>
+              <Link to='/settings'>
                 <IoSettingsOutline size={20} />
                 Settings
-              </a>
+              </Link>
             </li>
             <li>
               <details className='dropdown'>

@@ -8,7 +8,7 @@ const hero = () => {
       <div className='hero-content flex-col lg:flex-row'>
         <img src={heroImage} className='max-w-sm rounded-xl shadow-2xl mr-10' />
         <div>
-          <h1 className='text-5xl font-bold font-header text-primary'>
+          <h1 className='text-5xl font-bold font-header text-base-content'>
             SmartSip AI
           </h1>
           <p className='py-6 text-lg font-semibold'>
