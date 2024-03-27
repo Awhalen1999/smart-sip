@@ -3,13 +3,16 @@ import ingredientsList from './IngredientList.js';
 import {
   getCheckedItemsFromLocalStorage,
   removeItemFromLocalStorage,
+  getCustomItemsFromLocalStorage,
 } from '../../utils/api.js';
 
 const SelectedIngredients = () => {
   const [checkedItems, setCheckedItems] = useState([]);
+  const [customItems, setCustomItems] = useState({});
 
   useEffect(() => {
     setCheckedItems(getCheckedItemsFromLocalStorage());
+    setCustomItems(getCustomItemsFromLocalStorage());
   }, []);
 
   const handleCheckboxChange = (event) => {
@@ -26,7 +29,7 @@ const SelectedIngredients = () => {
         <div key={category}>
           <h2 className='text-2xl py-4'>{category}</h2>
           <div className='grid grid-cols-8 gap-4'>
-            {items
+            {[...items, ...(customItems[category] || [])]
               .filter((item) => checkedItems.includes(item))
               .map((item, index) => (
                 <div key={index} className='border p-2 rounded'>
