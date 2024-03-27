@@ -11,6 +11,7 @@ import { MdMenuOpen } from 'react-icons/md';
 const AvailableIngredients = () => {
   const [checkedItems, setCheckedItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('Show All');
+  const [searchTerm, setSearchTerm] = useState('');
   const categories = [
     'Show All',
     'Alcohol',
@@ -58,20 +59,24 @@ const AvailableIngredients = () => {
               <div key={category}>
                 <h2 className='text-2xl py-4'>{category}</h2>
                 <div className='grid grid-cols-6 gap-4'>
-                  {items.map((item, index) => (
-                    <div key={index} className='border p-2 rounded'>
-                      <label className='flex items-center'>
-                        <input
-                          type='checkbox'
-                          className='checkbox mr-2'
-                          value={item}
-                          onChange={handleCheckboxChange}
-                          checked={checkedItems.includes(item)}
-                        />
-                        {item}
-                      </label>
-                    </div>
-                  ))}
+                  {items
+                    .filter((item) =>
+                      item.toLowerCase().includes(searchTerm.toLowerCase())
+                    )
+                    .map((item, index) => (
+                      <div key={index} className='border p-2 rounded'>
+                        <label className='flex items-center'>
+                          <input
+                            type='checkbox'
+                            className='checkbox mr-2'
+                            value={item}
+                            onChange={handleCheckboxChange}
+                            checked={checkedItems.includes(item)}
+                          />
+                          {item}
+                        </label>
+                      </div>
+                    ))}
                 </div>
               </div>
             ))}
@@ -98,7 +103,13 @@ const AvailableIngredients = () => {
             </li>
           ))}
           <label className='input input-bordered flex items-center gap-2'>
-            <input type='text' className='grow' placeholder='Search' />
+            <input
+              type='text'
+              className='grow'
+              placeholder='Search'
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
             <FaSearch />
           </label>
         </ul>
