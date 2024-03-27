@@ -1,13 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import {
+  getSettingsFromLocalStorage,
+  saveSettingsToLocalStorage,
+} from '../../utils/api';
 
 const BartenderSettings = () => {
+  const [settings, setSettings] = useState(getSettingsFromLocalStorage());
+
+  const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+    const newSettings = { ...settings, [name]: checked };
+    setSettings(newSettings);
+    saveSettingsToLocalStorage(newSettings);
+  };
+
   return (
     <div className='p-4 space-y-4'>
       <h1 className='text-lg font-semibold'>Bartender Settings</h1>
 
       <div>
         <label className='flex items-center space-x-3 mb-1'>
-          <input type='checkbox' className='toggle toggle-success' checked />
+          <input
+            type='checkbox'
+            className='toggle toggle-success'
+            name='useSavedIngredients'
+            checked={settings.useSavedIngredients || false}
+            onChange={handleCheckboxChange}
+          />
           <span>Use Saved Ingredients</span>
         </label>
         <p className='text-sm text-neutral-content'>
@@ -18,7 +38,13 @@ const BartenderSettings = () => {
 
       <div>
         <label className='flex items-center space-x-3 mb-1'>
-          <input type='checkbox' className='toggle toggle-success' checked />
+          <input
+            type='checkbox'
+            className='toggle toggle-success'
+            name='signatureStyle'
+            checked={settings.signatureStyle || false}
+            onChange={handleCheckboxChange}
+          />
           <span>Signature Style</span>
         </label>
         <p className='text-sm text-neutral-content'>
@@ -30,7 +56,13 @@ const BartenderSettings = () => {
 
       <div>
         <label className='flex items-center space-x-3 mb-1'>
-          <input type='checkbox' className='toggle toggle-success' />
+          <input
+            type='checkbox'
+            className='toggle toggle-success'
+            name='nonAlcoholicMode'
+            checked={settings.nonAlcoholicMode || false}
+            onChange={handleCheckboxChange}
+          />
           <span>Non-Alcoholic Mode</span>
         </label>
         <p className='text-sm text-neutral-content'>
@@ -42,7 +74,13 @@ const BartenderSettings = () => {
 
       <div>
         <label className='flex items-center space-x-3 mb-1'>
-          <input type='checkbox' className='toggle toggle-success' checked />
+          <input
+            type='checkbox'
+            className='toggle toggle-success'
+            name='showBackground'
+            checked={settings.showBackground || false}
+            onChange={handleCheckboxChange}
+          />
           <span>Show Background</span>
         </label>
         <p className='text-sm text-neutral-content'>
@@ -53,7 +91,13 @@ const BartenderSettings = () => {
 
       <div>
         <label className='flex items-center space-x-3 mb-1'>
-          <input type='checkbox' className='toggle toggle-success' checked />
+          <input
+            type='checkbox'
+            className='toggle toggle-success'
+            name='showBartenderImage'
+            checked={settings.showBartenderImage || false}
+            onChange={handleCheckboxChange}
+          />
           <span>Show Bartender Image</span>
         </label>
         <p className='text-sm text-neutral-content'>

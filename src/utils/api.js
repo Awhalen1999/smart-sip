@@ -49,3 +49,31 @@ export function removeCustomItemFromLocalStorage(category, item) {
     localStorage.setItem('customItems', JSON.stringify(customItems));
   }
 }
+
+export function getSettingsFromLocalStorage() {
+  try {
+    const settings = localStorage.getItem('settings');
+    if (settings) {
+      return JSON.parse(settings);
+    } else {
+      return {
+        useSavedIngredients: false,
+        signatureStyle: false,
+        nonAlcoholicMode: false,
+        showBackground: false,
+        showBartenderImage: false,
+      };
+    }
+  } catch (error) {
+    console.error('Error parsing settings from local storage:', error);
+    return {};
+  }
+}
+
+export function saveSettingsToLocalStorage(settings) {
+  try {
+    localStorage.setItem('settings', JSON.stringify(settings));
+  } catch (error) {
+    console.error('Error saving settings to local storage:', error);
+  }
+}
