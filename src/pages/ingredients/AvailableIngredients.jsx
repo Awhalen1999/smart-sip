@@ -11,6 +11,7 @@ import {
 } from '../../utils/api.js';
 import { MdMenuOpen } from 'react-icons/md';
 import { IoAddOutline } from 'react-icons/io5';
+import { TiDelete } from 'react-icons/ti';
 
 const AvailableIngredients = () => {
   const [checkedItems, setCheckedItems] = useState([]);
@@ -113,10 +114,10 @@ const AvailableIngredients = () => {
                           {item}
                           {customItems[category]?.includes(item) && (
                             <button
-                              className='ml-4'
+                              className='ml-4 text-error'
                               onClick={() => handleDeleteItem(category, item)}
                             >
-                              -
+                              <TiDelete size={22} />
                             </button>
                           )}
                         </label>
