@@ -10,6 +10,17 @@ import { MdMenuOpen } from 'react-icons/md';
 
 const AvailableIngredients = () => {
   const [checkedItems, setCheckedItems] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('Show All');
+  const categories = [
+    'Show All',
+    'Alcohol',
+    'Mixers',
+    'Sweeteners',
+    'Citrus',
+    'Bitters',
+    'Garnishes',
+    'Other',
+  ];
 
   useEffect(() => {
     setCheckedItems(getCheckedItemsFromLocalStorage());
@@ -38,27 +49,32 @@ const AvailableIngredients = () => {
           >
             <MdMenuOpen size={24} />
           </label>
-          {Object.entries(ingredientsList).map(([category, items]) => (
-            <div key={category}>
-              <h2 className='text-2xl py-4'>{category}</h2>
-              <div className='grid grid-cols-6 gap-4'>
-                {items.map((item, index) => (
-                  <div key={index} className='border p-2 rounded'>
-                    <label className='flex items-center'>
-                      <input
-                        type='checkbox'
-                        className='checkbox mr-2'
-                        value={item}
-                        onChange={handleCheckboxChange}
-                        checked={checkedItems.includes(item)}
-                      />
-                      {item}
-                    </label>
-                  </div>
-                ))}
+          {Object.entries(ingredientsList)
+            .filter(
+              ([category]) =>
+                selectedCategory === 'Show All' || category === selectedCategory
+            )
+            .map(([category, items]) => (
+              <div key={category}>
+                <h2 className='text-2xl py-4'>{category}</h2>
+                <div className='grid grid-cols-6 gap-4'>
+                  {items.map((item, index) => (
+                    <div key={index} className='border p-2 rounded'>
+                      <label className='flex items-center'>
+                        <input
+                          type='checkbox'
+                          className='checkbox mr-2'
+                          value={item}
+                          onChange={handleCheckboxChange}
+                          checked={checkedItems.includes(item)}
+                        />
+                        {item}
+                      </label>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
       <div className='drawer-side'>
@@ -69,30 +85,18 @@ const AvailableIngredients = () => {
         ></label>
         <ul className='menu p-4 w-80 min-h-full bg-base-200 text-base-content'>
           {/* Sidebar items */}
-          <li>
-            <a>Show All</a>
-          </li>
-          <li>
-            <a>Alcohol</a>
-          </li>
-          <li>
-            <a>Mixers</a>
-          </li>
-          <li>
-            <a>Sweeteners</a>
-          </li>
-          <li>
-            <a>Citrus</a>
-          </li>
-          <li>
-            <a>Bitters</a>
-          </li>
-          <li>
-            <a>Garnishes</a>
-          </li>
-          <li>
-            <a>Other</a>
-          </li>
+          {categories.map((category) => (
+            <li
+              key={category}
+              className={
+                selectedCategory === category
+                  ? 'rounded-lg bg-primary mb-2 text-primary-content'
+                  : 'mb-2'
+              }
+            >
+              <a onClick={() => setSelectedCategory(category)}>{category}</a>
+            </li>
+          ))}
           <label className='input input-bordered flex items-center gap-2'>
             <input type='text' className='grow' placeholder='Search' />
             <FaSearch />
