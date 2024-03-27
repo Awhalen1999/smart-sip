@@ -5,13 +5,18 @@ import {
   addItemToLocalStorage,
   removeItemFromLocalStorage,
   getCheckedItemsFromLocalStorage,
+  getCustomItemsFromLocalStorage,
+  addCustomItemToLocalStorage,
+  removeCustomItemFromLocalStorage,
 } from '../../utils/api.js';
 import { MdMenuOpen } from 'react-icons/md';
+import { IoAddOutline } from 'react-icons/io5';
 
 const AvailableIngredients = () => {
   const [checkedItems, setCheckedItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('Show All');
   const [searchTerm, setSearchTerm] = useState('');
+  const [customItems, setCustomItems] = useState({});
   const categories = [
     'Show All',
     'Alcohol',
@@ -25,6 +30,7 @@ const AvailableIngredients = () => {
 
   useEffect(() => {
     setCheckedItems(getCheckedItemsFromLocalStorage());
+    setCustomItems(getCustomItemsFromLocalStorage());
   }, []);
 
   const handleCheckboxChange = (event) => {
@@ -36,6 +42,29 @@ const AvailableIngredients = () => {
       removeItemFromLocalStorage(item);
       setCheckedItems(checkedItems.filter((i) => i !== item));
     }
+  };
+
+  const handleAddItem = (category) => {
+    const item = prompt('Enter the name of the new item:');
+    if (item) {
+      addCustomItemToLocalStorage(category, item);
+      setCustomItems((prevItems) => ({
+        ...prevItems,
+        [category]: [...(prevItems[category] || []), item],
+      }));
+      addItemToLocalStorage(item);
+      setCheckedItems([...checkedItems, item]);
+    }
+  };
+
+  const handleDeleteItem = (category, item) => {
+    removeItemFromLocalStorage(item);
+    removeCustomItemFromLocalStorage(category, item); // Use the function
+    setCheckedItems(checkedItems.filter((i) => i !== item));
+    setCustomItems((prevItems) => ({
+      ...prevItems,
+      [category]: prevItems[category].filter((i) => i !== item),
+    }));
   };
 
   return (
@@ -57,9 +86,17 @@ const AvailableIngredients = () => {
             )
             .map(([category, items]) => (
               <div key={category}>
-                <h2 className='text-2xl py-4'>{category}</h2>
+                <div className='flex items-center'>
+                  <h2 className='text-2xl py-4'>{category}</h2>
+                  <button
+                    className='ml-4 btn btn-ghost btn-sm'
+                    onClick={() => handleAddItem(category)}
+                  >
+                    <IoAddOutline size={24} />
+                  </button>
+                </div>
                 <div className='grid grid-cols-6 gap-4'>
-                  {items
+                  {[...items, ...(customItems[category] || [])]
                     .filter((item) =>
                       item.toLowerCase().includes(searchTerm.toLowerCase())
                     )
@@ -74,6 +111,14 @@ const AvailableIngredients = () => {
                             checked={checkedItems.includes(item)}
                           />
                           {item}
+                          {customItems[category]?.includes(item) && (
+                            <button
+                              className='ml-4'
+                              onClick={() => handleDeleteItem(category, item)}
+                            >
+                              -
+                            </button>
+                          )}
                         </label>
                       </div>
                     ))}
