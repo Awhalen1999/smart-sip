@@ -4,24 +4,24 @@ import {
   saveSettingsToLocalStorage,
 } from '../../utils/api';
 
+const defaultSettings = {
+  useSavedIngredients: false,
+  signatureStyle: false,
+  nonAlcoholicMode: false,
+  showBackground: false,
+  showBartenderImage: false,
+};
+
 const BartenderSettings = () => {
-  const [settings, setSettings] = useState({});
+  const [settings, setSettings] = useState(defaultSettings);
 
   useEffect(() => {
-    const initialSettings = {
-      useSavedIngredients:
-        getSettingFromLocalStorage('useSavedIngredients') || false,
-      signatureStyle: getSettingFromLocalStorage('signatureStyle') || false,
-      nonAlcoholicMode: getSettingFromLocalStorage('nonAlcoholicMode') || false,
-      showBackground: getSettingFromLocalStorage('showBackground') || false,
-      showBartenderImage:
-        getSettingFromLocalStorage('showBartenderImage') || false,
-    };
-    setSettings(initialSettings);
+    const initialSettings = Object.keys(defaultSettings).reduce((acc, key) => {
+      acc[key] = getSettingFromLocalStorage(key) || defaultSettings[key];
+      return acc;
+    }, {});
 
-    for (const [key, value] of Object.entries(initialSettings)) {
-      saveSettingsToLocalStorage(key, value);
-    }
+    setSettings(initialSettings);
   }, []);
 
   const handleCheckboxChange = (event) => {
@@ -41,7 +41,7 @@ const BartenderSettings = () => {
             type='checkbox'
             className='toggle toggle-success'
             name='useSavedIngredients'
-            checked={settings.useSavedIngredients || false}
+            checked={settings.useSavedIngredients}
             onChange={handleCheckboxChange}
           />
           <span>Use Saved Ingredients</span>
@@ -58,7 +58,7 @@ const BartenderSettings = () => {
             type='checkbox'
             className='toggle toggle-success'
             name='signatureStyle'
-            checked={settings.signatureStyle || false}
+            checked={settings.signatureStyle}
             onChange={handleCheckboxChange}
           />
           <span>Signature Style</span>
@@ -76,7 +76,7 @@ const BartenderSettings = () => {
             type='checkbox'
             className='toggle toggle-success'
             name='nonAlcoholicMode'
-            checked={settings.nonAlcoholicMode || false}
+            checked={settings.nonAlcoholicMode}
             onChange={handleCheckboxChange}
           />
           <span>Non-Alcoholic Mode</span>
@@ -94,7 +94,7 @@ const BartenderSettings = () => {
             type='checkbox'
             className='toggle toggle-success'
             name='showBackground'
-            checked={settings.showBackground || false}
+            checked={settings.showBackground}
             onChange={handleCheckboxChange}
           />
           <span>Show Background</span>
@@ -111,7 +111,7 @@ const BartenderSettings = () => {
             type='checkbox'
             className='toggle toggle-success'
             name='showBartenderImage'
-            checked={settings.showBartenderImage || false}
+            checked={settings.showBartenderImage}
             onChange={handleCheckboxChange}
           />
           <span>Show Bartender Image</span>

@@ -1,6 +1,4 @@
 //todo
-// 1. close drawer button
-// 2. fix open drawer button
 // 3. better icons
 // 4. page height
 // 5. settings page
@@ -102,9 +100,17 @@ const AIBartender = () => {
         <div className='drawer-content flex flex-col items-center justify-center'>
           {/* Chat section */}
           <div className='flex-grow w-full h-full flex flex-col p-6 bg-black bg-opacity-75 overflow-auto'>
-            <h2 className='text-xl font-bold text-white'>
-              AI Bartender ({bartender})
-            </h2>
+            <div className='flex items-center'>
+              <label
+                htmlFor='my-drawer-2'
+                className='btn btn-ghost drawer-button lg:hidden mr-4'
+              >
+                <MdMenuOpen size={24} />
+              </label>
+              <h2 className='text-xl font-bold text-white'>
+                AI Bartender ({bartender})
+              </h2>
+            </div>
             <div className='mt-2'>
               <div className='flex items-center'>
                 <div className='avatar'>
@@ -174,12 +180,6 @@ const AIBartender = () => {
             ) : null}
           </div>
           {/* end of page content */}
-          <label
-            htmlFor='my-drawer-2'
-            className='btn btn-primary drawer-button lg:hidden'
-          >
-            <MdMenuOpen />
-          </label>
         </div>
         <div className='drawer-side'>
           <label
