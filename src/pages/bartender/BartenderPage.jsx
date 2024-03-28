@@ -16,6 +16,10 @@ import { FaRegStar } from 'react-icons/fa';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import BartenderSettings from './BartenderSettings';
+import {
+  getSettingFromLocalStorage,
+  getCheckedItemsFromLocalStorage,
+} from '../../utils/api';
 
 const AIBartender = () => {
   const [drinkDescription, setDrinkDescription] = useState('');
@@ -37,6 +41,25 @@ const AIBartender = () => {
 
   const handleSubmit = async (quickStart = false) => {
     setIsLoading(true);
+
+    // Retrieve the saved ingredients setting from local storage
+    const useSavedIngredients = getSettingFromLocalStorage(
+      'useSavedIngredients'
+    );
+    console.log(`useSavedIngredients: ${useSavedIngredients}`);
+
+    // If the saved ingredients setting is enabled, retrieve the saved ingredients from local storage
+    // Otherwise, use the ingredients entered by the user
+    const ingredientsToUse = useSavedIngredients
+      ? getCheckedItemsFromLocalStorage()
+      : ingredients;
+    console.log(`ingredientsToUse: ${ingredientsToUse}`);
+
+    const userPrompt = quickStart
+      ? 'Give me a random cocktail recipe.'
+      : `I want a drink that is ${drinkDescription}. I have these ingredients: ${ingredientsToUse}. I will tip for good service. Thank you! `;
+    console.log(`User prompt: ${userPrompt}`);
+
     const data = {
       model: 'gpt-3.5-turbo',
       messages: [
@@ -46,9 +69,7 @@ const AIBartender = () => {
         },
         {
           role: 'user',
-          content: quickStart
-            ? 'Give me a random cocktail recipe.'
-            : `I want a drink that is ${drinkDescription}. I have these ingredients: ${ingredients}. I will tip for good service. Thank you! `,
+          content: userPrompt,
         },
       ],
     };
@@ -106,14 +127,16 @@ const AIBartender = () => {
               className='textarea textarea-primary w-1/2 mt-5'
               placeholder='Describe a drink (optional):'
             />
-            <textarea
-              value={ingredients}
-              onChange={(e) => setIngredients(e.target.value)}
-              cols='30'
-              rows='2'
-              className='textarea textarea-primary w-1/2 mt-5'
-              placeholder='Available ingredients (optional):'
-            />
+            {!getSettingFromLocalStorage('useSavedIngredients') && (
+              <textarea
+                value={ingredients}
+                onChange={(e) => setIngredients(e.target.value)}
+                cols='30'
+                rows='2'
+                className='textarea textarea-primary w-1/2 mt-5'
+                placeholder='Available ingredients (optional):'
+              />
+            )}
             <div className='flex items-start mt-5'>
               <button
                 onClick={() => handleSubmit(false)}

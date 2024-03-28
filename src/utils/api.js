@@ -50,30 +50,22 @@ export function removeCustomItemFromLocalStorage(category, item) {
   }
 }
 
-export function getSettingsFromLocalStorage() {
+export function getSettingFromLocalStorage(key) {
   try {
-    const settings = localStorage.getItem('settings');
-    if (settings) {
-      return JSON.parse(settings);
-    } else {
-      return {
-        useSavedIngredients: false,
-        signatureStyle: false,
-        nonAlcoholicMode: false,
-        showBackground: false,
-        showBartenderImage: false,
-      };
-    }
+    const settings = JSON.parse(localStorage.getItem('settings')) || {};
+    return settings[key];
   } catch (error) {
-    console.error('Error parsing settings from local storage:', error);
-    return {};
+    console.error(`Error getting ${key} from settings:`, error);
+    return null;
   }
 }
 
-export function saveSettingsToLocalStorage(settings) {
+export function saveSettingsToLocalStorage(key, value) {
   try {
+    const settings = JSON.parse(localStorage.getItem('settings')) || {};
+    settings[key] = value;
     localStorage.setItem('settings', JSON.stringify(settings));
   } catch (error) {
-    console.error('Error saving settings to local storage:', error);
+    console.error(`Error saving ${key} to settings:`, error);
   }
 }

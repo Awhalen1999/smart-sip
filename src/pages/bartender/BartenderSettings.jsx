@@ -1,18 +1,34 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import {
-  getSettingsFromLocalStorage,
+  getSettingFromLocalStorage,
   saveSettingsToLocalStorage,
 } from '../../utils/api';
 
 const BartenderSettings = () => {
-  const [settings, setSettings] = useState(getSettingsFromLocalStorage());
+  const [settings, setSettings] = useState({});
+
+  useEffect(() => {
+    const initialSettings = {
+      useSavedIngredients:
+        getSettingFromLocalStorage('useSavedIngredients') || false,
+      signatureStyle: getSettingFromLocalStorage('signatureStyle') || false,
+      nonAlcoholicMode: getSettingFromLocalStorage('nonAlcoholicMode') || false,
+      showBackground: getSettingFromLocalStorage('showBackground') || false,
+      showBartenderImage:
+        getSettingFromLocalStorage('showBartenderImage') || false,
+    };
+    setSettings(initialSettings);
+
+    for (const [key, value] of Object.entries(initialSettings)) {
+      saveSettingsToLocalStorage(key, value);
+    }
+  }, []);
 
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
     const newSettings = { ...settings, [name]: checked };
     setSettings(newSettings);
-    saveSettingsToLocalStorage(newSettings);
+    saveSettingsToLocalStorage(name, checked);
   };
 
   return (
