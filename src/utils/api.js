@@ -107,3 +107,18 @@ export function deleteDrinkFromLocalStorage(drinkTitle) {
     console.error('Error deleting drink from local storage:', error);
   }
 }
+
+export function toggleFavoriteDrink(drinkTitle) {
+  try {
+    const drinks = JSON.parse(localStorage.getItem('drinks')) || [];
+    const updatedDrinks = drinks.map((drink) => {
+      if (drink.title === drinkTitle) {
+        return { ...drink, favorite: !drink.favorite };
+      }
+      return drink;
+    });
+    localStorage.setItem('drinks', JSON.stringify(updatedDrinks));
+  } catch (error) {
+    console.error('Error toggling favorite drink:', error);
+  }
+}
