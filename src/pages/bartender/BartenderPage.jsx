@@ -26,6 +26,18 @@ const AIBartender = () => {
   const [recipe, setRecipe] = useState('');
   const [bartender, setBartender] = useState('Default');
   const [isLoading, setIsLoading] = useState(false);
+  const [useSavedIngredients, setUseSavedIngredients] = useState(
+    getSettingFromLocalStorage('useSavedIngredients')
+  );
+  const [signatureStyle, setSignatureStyle] = useState(
+    getSettingFromLocalStorage('signatureStyle')
+  );
+
+  const updateSettings = () => {
+    setUseSavedIngredients(getSettingFromLocalStorage('useSavedIngredients'));
+    setSignatureStyle(getSettingFromLocalStorage('signatureStyle'));
+    // Add more updates here as needed
+  };
 
   const bartenders = Object.keys(BartenderInfo); // List of bartenders
 
@@ -230,7 +242,7 @@ const AIBartender = () => {
             <dialog id='my_modal_1' className='modal'>
               <div className='modal-box'>
                 <h3 className='font-bold text-lg'>Settings</h3>
-                <BartenderSettings />{' '}
+                <BartenderSettings updateSettings={updateSettings} />
                 {/* Display the BartenderSettings component */}
                 <div className='modal-action'>
                   <form method='dialog'>

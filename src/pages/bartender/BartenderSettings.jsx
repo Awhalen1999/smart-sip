@@ -12,7 +12,7 @@ const defaultSettings = {
   showBartenderImage: false,
 };
 
-const BartenderSettings = () => {
+const BartenderSettings = (props) => {
   const [settings, setSettings] = useState(defaultSettings);
 
   useEffect(() => {
@@ -29,6 +29,7 @@ const BartenderSettings = () => {
     const newSettings = { ...settings, [name]: checked };
     setSettings(newSettings);
     saveSettingsToLocalStorage(name, checked);
+    props.updateSettings(); // Update the settings in the AIBartender component
   };
 
   return (
