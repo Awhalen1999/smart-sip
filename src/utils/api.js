@@ -97,3 +97,13 @@ export function saveDrinkToLocalStorage(drink) {
     console.error('Error saving drink to local storage:', error);
   }
 }
+
+export function deleteDrinkFromLocalStorage(drinkTitle) {
+  try {
+    const drinks = JSON.parse(localStorage.getItem('drinks')) || [];
+    const updatedDrinks = drinks.filter((drink) => drink.title !== drinkTitle);
+    localStorage.setItem('drinks', JSON.stringify(updatedDrinks));
+  } catch (error) {
+    console.error('Error deleting drink from local storage:', error);
+  }
+}
