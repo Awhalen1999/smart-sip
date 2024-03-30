@@ -17,6 +17,7 @@ import BartenderSettings from './BartenderSettings';
 import {
   getSettingFromLocalStorage,
   getCheckedItemsFromLocalStorage,
+  saveDrinkToLocalStorage,
 } from '../../utils/api';
 
 const AIBartender = () => {
@@ -158,6 +159,7 @@ const AIBartender = () => {
               </button>
             </div>
             {/* AI recipe returned: */}
+
             {isLoading || recipe ? (
               <div className='mt-5'>
                 <div className='flex items-end'>
@@ -176,6 +178,14 @@ const AIBartender = () => {
                     </div>
                   </div>
                 </div>
+                {!isLoading && recipe ? (
+                  <button
+                    onClick={() => saveDrinkToLocalStorage(recipe)}
+                    className='btn btn-success mt-2'
+                  >
+                    Save Recipe
+                  </button>
+                ) : null}
               </div>
             ) : null}
           </div>

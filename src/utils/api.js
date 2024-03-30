@@ -69,3 +69,31 @@ export function saveSettingsToLocalStorage(key, value) {
     console.error(`Error saving ${key} to settings:`, error);
   }
 }
+
+export function getDrinksFromLocalStorage() {
+  try {
+    return JSON.parse(localStorage.getItem('drinks')) || [];
+  } catch (error) {
+    console.error('Error getting drinks from local storage:', error);
+    return [];
+  }
+}
+
+export function saveDrinkToLocalStorage(drink) {
+  try {
+    const drinks = JSON.parse(localStorage.getItem('drinks')) || [];
+
+    // Split the drink string into sections
+    const sections = drink.split('Description:');
+    const titleSection = sections[0].replace('Drink Name:', '').trim();
+    const title = titleSection.split('\n').pop().trim();
+    const description = sections[1].split('Recipe:')[0].trim();
+    const recipe = sections[1].split('Recipe:')[1].trim();
+
+    // Save the drink as an object with title, description, and recipe properties
+    drinks.push({ title, description, recipe });
+    localStorage.setItem('drinks', JSON.stringify(drinks));
+  } catch (error) {
+    console.error('Error saving drink to local storage:', error);
+  }
+}
