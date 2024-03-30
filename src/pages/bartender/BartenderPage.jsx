@@ -56,7 +56,7 @@ const AIBartender = () => {
 
     const userPrompt = quickStart
       ? 'Give me a random cocktail recipe.'
-      : `I want a drink that is ${drinkDescription}. I have these ingredients: ${ingredientsToUse}. I will tip for good service. Thank you! `;
+      : `I want a drink that is ${drinkDescription}. I have these ingredients: ${ingredientsToUse}.  Thank you! `;
     console.log(`User prompt: ${userPrompt}`);
 
     const data = {

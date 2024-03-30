@@ -1,17 +1,28 @@
+// Adds an item to local storage if it doesn't already exist
 export function addItemToLocalStorage(item) {
-  let items = getCheckedItemsFromLocalStorage();
-  if (!items.includes(item)) {
-    items.push(item);
-    localStorage.setItem('checkedIngredients', JSON.stringify(items));
+  try {
+    let items = getCheckedItemsFromLocalStorage();
+    if (!items.includes(item)) {
+      items.push(item);
+      localStorage.setItem('checkedIngredients', JSON.stringify(items));
+    }
+  } catch (error) {
+    console.error('Error adding item to local storage:', error);
   }
 }
 
+// Removes an item from local storage
 export function removeItemFromLocalStorage(item) {
-  let items = getCheckedItemsFromLocalStorage();
-  items = items.filter((i) => i !== item);
-  localStorage.setItem('checkedIngredients', JSON.stringify(items));
+  try {
+    let items = getCheckedItemsFromLocalStorage();
+    items = items.filter((i) => i !== item);
+    localStorage.setItem('checkedIngredients', JSON.stringify(items));
+  } catch (error) {
+    console.error('Error removing item from local storage:', error);
+  }
 }
 
+// Retrieves checked items from local storage
 export function getCheckedItemsFromLocalStorage() {
   try {
     return JSON.parse(localStorage.getItem('checkedIngredients')) || [];
@@ -24,6 +35,7 @@ export function getCheckedItemsFromLocalStorage() {
   }
 }
 
+// Retrieves custom items from local storage
 export function getCustomItemsFromLocalStorage() {
   try {
     const customItems = localStorage.getItem('customItems');
@@ -34,22 +46,33 @@ export function getCustomItemsFromLocalStorage() {
   }
 }
 
+// Adds a custom item to a category in local storage
 export function addCustomItemToLocalStorage(category, item) {
-  const customItems = getCustomItemsFromLocalStorage();
-  if (!customItems[category] || !customItems[category].includes(item)) {
-    customItems[category] = [...(customItems[category] || []), item];
-    localStorage.setItem('customItems', JSON.stringify(customItems));
+  try {
+    const customItems = getCustomItemsFromLocalStorage();
+    if (!customItems[category] || !customItems[category].includes(item)) {
+      customItems[category] = [...(customItems[category] || []), item];
+      localStorage.setItem('customItems', JSON.stringify(customItems));
+    }
+  } catch (error) {
+    console.error('Error adding custom item to local storage:', error);
   }
 }
 
+// Removes a custom item from a category in local storage
 export function removeCustomItemFromLocalStorage(category, item) {
-  const customItems = getCustomItemsFromLocalStorage();
-  if (customItems[category]) {
-    customItems[category] = customItems[category].filter((i) => i !== item);
-    localStorage.setItem('customItems', JSON.stringify(customItems));
+  try {
+    const customItems = getCustomItemsFromLocalStorage();
+    if (customItems[category]) {
+      customItems[category] = customItems[category].filter((i) => i !== item);
+      localStorage.setItem('customItems', JSON.stringify(customItems));
+    }
+  } catch (error) {
+    console.error('Error removing custom item from local storage:', error);
   }
 }
 
+// Retrieves a setting from local storage
 export function getSettingFromLocalStorage(key) {
   try {
     const settings = JSON.parse(localStorage.getItem('settings')) || {};
@@ -60,6 +83,7 @@ export function getSettingFromLocalStorage(key) {
   }
 }
 
+// Saves a setting to local storage
 export function saveSettingsToLocalStorage(key, value) {
   try {
     const settings = JSON.parse(localStorage.getItem('settings')) || {};
@@ -70,6 +94,7 @@ export function saveSettingsToLocalStorage(key, value) {
   }
 }
 
+// Retrieves drinks from local storage
 export function getDrinksFromLocalStorage() {
   try {
     return JSON.parse(localStorage.getItem('drinks')) || [];
@@ -79,6 +104,7 @@ export function getDrinksFromLocalStorage() {
   }
 }
 
+// Saves a drink to local storage
 export function saveDrinkToLocalStorage(drink) {
   try {
     const drinks = JSON.parse(localStorage.getItem('drinks')) || [];
@@ -98,6 +124,7 @@ export function saveDrinkToLocalStorage(drink) {
   }
 }
 
+// Deletes a drink from local storage
 export function deleteDrinkFromLocalStorage(drinkTitle) {
   try {
     const drinks = JSON.parse(localStorage.getItem('drinks')) || [];
@@ -108,6 +135,7 @@ export function deleteDrinkFromLocalStorage(drinkTitle) {
   }
 }
 
+// Toggles the favorite status of a drink in local storage
 export function toggleFavoriteDrink(drinkTitle) {
   try {
     const drinks = JSON.parse(localStorage.getItem('drinks')) || [];
