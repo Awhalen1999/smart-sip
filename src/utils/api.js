@@ -116,6 +116,13 @@ export function saveDrinkToLocalStorage(drink) {
     const description = sections[1].split('Recipe:')[0].trim();
     const recipe = sections[1].split('Recipe:')[1].trim();
 
+    // Check if a drink with the same title already exists
+    const existingDrink = drinks.find((d) => d.title === title);
+    if (existingDrink) {
+      console.error('Error: Drink with the same title already exists.');
+      return;
+    }
+
     // Save the drink as an object with title, description, and recipe properties
     drinks.push({ title, description, recipe });
     localStorage.setItem('drinks', JSON.stringify(drinks));
