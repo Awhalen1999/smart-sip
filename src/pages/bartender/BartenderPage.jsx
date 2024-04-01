@@ -127,7 +127,7 @@ const AIBartender = () => {
             <div className='mt-2'>
               <div className='flex items-center'>
                 <div className='avatar'>
-                  <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
+                  <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-black ring-offset-2'>
                     <img src={BartenderInfo[bartender].picture} />
                   </div>
                 </div>
@@ -176,7 +176,7 @@ const AIBartender = () => {
               <div className='mt-5'>
                 <div className='flex items-end'>
                   <div className='avatar'>
-                    <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
+                    <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-black ring-offset-2'>
                       <img src={BartenderInfo[bartender].picture} />
                     </div>
                   </div>

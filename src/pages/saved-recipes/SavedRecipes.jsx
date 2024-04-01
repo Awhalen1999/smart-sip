@@ -5,7 +5,7 @@ import {
   toggleFavoriteDrink,
 } from '../../utils/api';
 import { TiDelete } from 'react-icons/ti';
-import { FaRegStar, FaStar } from 'react-icons/fa';
+import { FaRegStar, FaStar, FaChevronDown } from 'react-icons/fa';
 
 const SavedRecipes = () => {
   const [drinks, setDrinks] = useState([]);
@@ -51,7 +51,10 @@ const SavedRecipes = () => {
                     <FaRegStar size={24} />
                   )}
                 </button>
-                <span>{drink.title}</span>
+                <div className='flex items-center'>
+                  <span className='mr-4'>{drink.title}</span>{' '}
+                  <FaChevronDown size={18} />
+                </div>
               </div>
               <button
                 onClick={() => handleDeleteDrink(drink.title)}
