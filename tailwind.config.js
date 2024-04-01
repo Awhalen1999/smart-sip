@@ -16,10 +16,10 @@ module.exports = {
         myDark: {
           primary: '#00CED1',
           'primary-content': '#000000',
-          secondary: '#20DFE5',
+          secondary: '#FFD166',
           'secondary-content': '#000000',
-          accent: '#FFD166',
-          'accent-content': '#000000',
+          accent: '#252525', // lighter gray
+          'accent-content': '#FFFFFF',
           neutral: '#000000',
           'neutral-content': '#FFFFFF',
           'base-100': '#000000',
@@ -40,9 +40,9 @@ module.exports = {
         myLight: {
           primary: '#00CED1',
           'primary-content': '#000000',
-          secondary: '#20DFE5',
+          secondary: '#FFD166',
           'secondary-content': '#000000',
-          accent: '#FFD166',
+          accent: '#C0C0C0',
           'accent-content': '#000000',
           neutral: '#FFFFFF',
           'neutral-content': '#000000',
