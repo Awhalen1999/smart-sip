@@ -4,7 +4,7 @@ import { FaRegMoon, FaRegSun } from 'react-icons/fa';
 
 const Nav = () => {
   const [currentTheme, setCurrentTheme] = useState(
-    localStorage.getItem('theme') || 'dark'
+    localStorage.getItem('theme') || 'myDark'
   );
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const Nav = () => {
   }, [currentTheme]);
 
   const handleThemeChange = (event) => {
-    const newTheme = event.target.checked ? 'dark' : 'light';
+    const newTheme = event.target.checked ? 'myDark' : 'myLight';
     setCurrentTheme(newTheme);
   };
 
@@ -81,10 +81,10 @@ const Nav = () => {
             type='checkbox'
             className='theme-controller mr-3'
             onChange={handleThemeChange}
-            checked={currentTheme === 'dark'}
+            checked={currentTheme === 'myDark'}
           />
 
-          {currentTheme === 'dark' ? (
+          {currentTheme === 'myDark' ? (
             <FaRegSun className='swap-on fill-current w-7 h-7' />
           ) : (
             <FaRegMoon className='swap-off fill-current w-7 h-7' />
