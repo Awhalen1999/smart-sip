@@ -49,7 +49,7 @@ const ingredientsList = {
     'Coca-Cola',
     'Lemonade',
     'Iced Tea',
-    'Energy Drink',
+    'Red Bull',
     'Bitter Lemon',
     'Fruit Punch',
   ],
