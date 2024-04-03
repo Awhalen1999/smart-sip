@@ -35,11 +35,15 @@ const AIBartender = () => {
   const [showBartenderImage, setShowBartenderImage] = useState(
     getSettingFromLocalStorage('showBartenderImage')
   );
+  const [nonAlcoholicMode, setNonAlcoholicMode] = useState(
+    getSettingFromLocalStorage('nonAlcoholicMode')
+  );
 
   const updateSettings = () => {
     setUseSavedIngredients(getSettingFromLocalStorage('useSavedIngredients'));
     setShowBackground(getSettingFromLocalStorage('showBackground'));
     setShowBartenderImage(getSettingFromLocalStorage('showBartenderImage'));
+    setNonAlcoholicMode(getSettingFromLocalStorage('nonAlcoholicMode'));
     // Add more updates here as needed
   };
 
@@ -70,9 +74,16 @@ const AIBartender = () => {
       : ingredients;
     console.log(`ingredientsToUse: ${ingredientsToUse}`);
 
+    const nonAlcoholicMode = getSettingFromLocalStorage('nonAlcoholicMode');
+    console.log(`nonAlcoholicMode: ${nonAlcoholicMode}`);
+
     const userPrompt = quickStart
-      ? 'Give me a random cocktail recipe.'
-      : `I want a drink that is ${drinkDescription}. I have these ingredients: ${ingredientsToUse}.  Thank you! `;
+      ? `Give me a random cocktail recipe. ${
+          nonAlcoholicMode ? 'I would like non-alcoholic drinks.' : ''
+        }`
+      : `I want a drink that is ${drinkDescription}. I have these ingredients: ${ingredientsToUse}. ${
+          nonAlcoholicMode ? 'I would like non-alcoholic drinks.' : ''
+        } Thank you! `;
     console.log(`User prompt: ${userPrompt}`);
 
     const data = {

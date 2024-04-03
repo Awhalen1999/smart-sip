@@ -7,8 +7,8 @@ import {
 const defaultSettings = {
   useSavedIngredients: false,
   nonAlcoholicMode: false,
-  showBackground: false,
-  showBartenderImage: false,
+  showBackground: true,
+  showBartenderImage: true,
 };
 
 const BartenderSettings = (props) => {
