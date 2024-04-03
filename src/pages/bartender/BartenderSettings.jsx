@@ -6,7 +6,6 @@ import {
 
 const defaultSettings = {
   useSavedIngredients: false,
-  signatureStyle: false,
   nonAlcoholicMode: false,
   showBackground: false,
   showBartenderImage: false,
@@ -50,24 +49,6 @@ const BartenderSettings = (props) => {
         <p className='text-sm text-neutral-content'>
           Enable this setting to allow the AI bartender to utilize previously
           saved ingredients from your profile for creating custom drinks.
-        </p>
-      </div>
-
-      <div>
-        <label className='flex items-center space-x-3 mb-1'>
-          <input
-            type='checkbox'
-            className='toggle toggle-success'
-            name='signatureStyle'
-            checked={settings.signatureStyle}
-            onChange={handleCheckboxChange}
-          />
-          <span>Signature Style</span>
-        </label>
-        <p className='text-sm text-neutral-content'>
-          Enable this feature to imbue the selected bartender's personality into
-          the crafted recipes, adding a unique flair and character to each drink
-          suggestion.
         </p>
       </div>
 
