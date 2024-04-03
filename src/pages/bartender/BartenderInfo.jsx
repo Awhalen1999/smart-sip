@@ -18,9 +18,16 @@ import samuraiPicture from '../../assets/samurai-picture.png';
 import samuraiBackground from '../../assets/samurai-background.png';
 import skeletonPicture from '../../assets/skeleton-picture.png';
 import skeletonBackground from '../../assets/skeleton-background.png';
+import { getSettingFromLocalStorage } from '../../utils/api';
 
-const basePrompt =
-  "As an AI bartender, your role is to craft drink recipes based on the user's preferences. If the user lists available ingredients, incorporate them as appropriate. Feel free to omit ingredients that don't fit or may spoil the drink. If no ingredient list is provided, assume common ingredients are available. The user the response formatted like this Drink Name: (a creative drink name that fits the drink) Description: (a unique and creative yet accurate description of the drink) Recipe: (recipe breakdown with measurements for each ingredient). Feel free to add any additional flair or personality to the response to enhance the user experience. Cheers!";
+const styleEnabled =
+  'The customer would like if you customized their drinks to match your personality. Lean into your personality and create drinks you would love.';
+const styleDisabled =
+  'The customer would like if you created their drinks without allowing your personality to influence your recommendations. Please still allow your personality to shine through in your language, however.';
+
+const basePrompt = `As an AI bartender, your role is to craft drink recipes based on the user's preferences. If the user lists available ingredients, incorporate them as appropriate. Feel free to omit ingredients that don't fit or may spoil the drink. If no ingredient list is provided, assume common ingredients are available. The user the response formatted like this Drink Name: (a creative drink name that fits the drink) Description: (a unique and creative yet accurate description of the drink) Recipe: (recipe breakdown with measurements for each ingredient). Feel free to add any additional flair or personality to the response to enhance the user experience. Cheers! ${
+  getSettingFromLocalStorage('useSignatureStyle') ? styleEnabled : styleDisabled
+}`;
 
 export const BartenderInfo = {
   Default: {

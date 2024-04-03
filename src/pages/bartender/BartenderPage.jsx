@@ -29,13 +29,17 @@ const AIBartender = () => {
   const [useSavedIngredients, setUseSavedIngredients] = useState(
     getSettingFromLocalStorage('useSavedIngredients')
   );
-  const [signatureStyle, setSignatureStyle] = useState(
-    getSettingFromLocalStorage('signatureStyle')
+  const [showBackground, setShowBackground] = useState(
+    getSettingFromLocalStorage('showBackground')
+  );
+  const [showBartenderImage, setShowBartenderImage] = useState(
+    getSettingFromLocalStorage('showBartenderImage')
   );
 
   const updateSettings = () => {
     setUseSavedIngredients(getSettingFromLocalStorage('useSavedIngredients'));
-    setSignatureStyle(getSettingFromLocalStorage('signatureStyle'));
+    setShowBackground(getSettingFromLocalStorage('showBackground'));
+    setShowBartenderImage(getSettingFromLocalStorage('showBartenderImage'));
     // Add more updates here as needed
   };
 
@@ -100,12 +104,16 @@ const AIBartender = () => {
 
   return (
     <div
-      className='flex'
-      style={{
-        backgroundImage: `url(${BartenderInfo[bartender].background})`,
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-      }}
+      className={`flex ${showBackground ? '' : 'bg-neutral'}`}
+      style={
+        showBackground
+          ? {
+              backgroundImage: `url(${BartenderInfo[bartender].background})`,
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+            }
+          : {}
+      }
     >
       {/* DaisyUI drawer */}
       <div className='drawer lg:drawer-open font-main'>
@@ -126,11 +134,13 @@ const AIBartender = () => {
             </div>
             <div className='mt-2'>
               <div className='flex items-center'>
-                <div className='avatar'>
-                  <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-black ring-offset-2'>
-                    <img src={BartenderInfo[bartender].picture} />
+                {showBartenderImage && (
+                  <div className='avatar'>
+                    <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-black ring-offset-2'>
+                      <img src={BartenderInfo[bartender].picture} />
+                    </div>
                   </div>
-                </div>
+                )}
                 <div className='chat chat-start'>
                   <div className='chat-bubble chat-bubble-neutral'>
                     {initialPrompt}
@@ -175,11 +185,13 @@ const AIBartender = () => {
             {isLoading || recipe ? (
               <div className='mt-5'>
                 <div className='flex items-end'>
-                  <div className='avatar'>
-                    <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-black ring-offset-2'>
-                      <img src={BartenderInfo[bartender].picture} />
+                  {showBartenderImage && (
+                    <div className='avatar'>
+                      <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-black ring-offset-2'>
+                        <img src={BartenderInfo[bartender].picture} />
+                      </div>
                     </div>
-                  </div>
+                  )}
                   <div className='chat chat-start'>
                     <div className='chat-bubble chat-bubble-neutral font-tech flex items-center justify-center'>
                       {isLoading ? (
@@ -211,31 +223,31 @@ const AIBartender = () => {
           ></label>
           <ul className='menu p-4 w-80 min-h-full bg-base-200 text-base-content'>
             {/* Sidebar content here */}
-            <li>
+            <li className='my-2 text-lg'>
               <Link to='/ingredients'>
-                <CiBoxList size={20} />
+                <CiBoxList size={22} />
                 Ingredients
               </Link>
             </li>
-            <li>
+            <li className='my-2 text-lg'>
               <Link to='/saved-recipes'>
-                <CiReceipt size={20} />
+                <CiReceipt size={22} />
                 My Recipes
               </Link>
             </li>
-            <li>
+            <li className='my-2 text-lg'>
               <Link to='/popular-recipes'>
-                <FaRegStar size={20} />
+                <FaRegStar size={22} />
                 Popular Drinks
               </Link>
             </li>
-            <li>
+            <li className='my-2 text-lg'>
               <button
                 onClick={() =>
                   document.getElementById('my_modal_1').showModal()
                 }
               >
-                <IoSettingsOutline size={20} />
+                <IoSettingsOutline size={22} />
                 Settings
               </button>
             </li>
@@ -253,9 +265,9 @@ const AIBartender = () => {
               </div>
             </dialog>
             <li>
-              <details className='dropdown'>
+              <details className='dropdown my-2 text-lg'>
                 <summary>
-                  <MdPersonOutline size={20} />
+                  <MdPersonOutline size={22} />
                   Bartenders
                 </summary>
                 <ul className='p-2 mt-1 bg-base-100 rounded-xl border'>

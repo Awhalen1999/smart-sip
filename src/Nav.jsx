@@ -61,16 +61,16 @@ const Nav = () => {
       </div>
       <div className='navbar-center hidden lg:flex'>
         <ul className='menu menu-horizontal px-1'>
-          <li>
+          <li className='mx-2'>
             <Link to='/bartender'>Bartender</Link>
           </li>
-          <li>
+          <li className='mx-2'>
             <Link to='/ingredients'>Ingredients</Link>
           </li>
-          <li>
+          <li className='mx-2'>
             <Link to='/saved-recipes'>Saved Recipes</Link>
           </li>
-          <li>
+          <li className='mx-2'>
             <Link to='/popular-recipes'>Popular Recipes</Link>
           </li>
         </ul>
