@@ -71,7 +71,7 @@ const AvailableIngredients = () => {
   return (
     <div className='drawer lg:drawer-open'>
       <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
-      <div className='drawer-content flex flex-col items-start justify-start px-8 '>
+      <div className='drawer-content flex flex-col items-start justify-start px-8  mx-auto'>
         {/* Page content */}
         <div>
           <label
@@ -96,17 +96,20 @@ const AvailableIngredients = () => {
                     <IoAddOutline size={24} />
                   </button>
                 </div>
-                <div className='grid grid-cols-6 gap-4'>
+                <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4'>
                   {[...items, ...(customItems[category] || [])]
                     .filter((item) =>
                       item.toLowerCase().includes(searchTerm.toLowerCase())
                     )
                     .map((item, index) => (
-                      <div key={index} className='border p-2 rounded'>
+                      <div
+                        key={index}
+                        className='border border-base-content px-6 py-2 rounded text-md'
+                      >
                         <label className='flex items-center'>
                           <input
                             type='checkbox'
-                            className='checkbox mr-2'
+                            className='checkbox checkbox-primary border-base-content checked:border-primary mr-2'
                             value={item}
                             onChange={handleCheckboxChange}
                             checked={checkedItems.includes(item)}
@@ -117,7 +120,7 @@ const AvailableIngredients = () => {
                               className='ml-4 text-error'
                               onClick={() => handleDeleteItem(category, item)}
                             >
-                              <TiDelete size={22} />
+                              <TiDelete size={24} />
                             </button>
                           )}
                         </label>
