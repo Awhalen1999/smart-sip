@@ -44,7 +44,7 @@ module.exports = {
           'secondary-content': '#000000',
           accent: '#C0C0C0',
           'accent-content': '#000000',
-          neutral: '#F8F8FF',
+          neutral: '#D3D3D3',
           'neutral-content': '#000000',
           'base-100': '#F8F8FF',
           'base-200': '#F0F0F0',

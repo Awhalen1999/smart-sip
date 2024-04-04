@@ -11,7 +11,7 @@ import BartenderInfo from './BartenderInfo';
 import { MdMenuOpen, MdPersonOutline } from 'react-icons/md';
 import { CiBoxList, CiReceipt } from 'react-icons/ci';
 import { FaRegStar } from 'react-icons/fa';
-import { IoSettingsOutline } from 'react-icons/io5';
+import { IoSettingsOutline, IoClose } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import BartenderSettings from './BartenderSettings';
 import {
@@ -61,14 +61,11 @@ const AIBartender = () => {
   const handleSubmit = async (quickStart = false) => {
     setIsLoading(true);
 
-    // Retrieve the saved ingredients setting from local storage
     const useSavedIngredients = getSettingFromLocalStorage(
       'useSavedIngredients'
     );
     console.log(`useSavedIngredients: ${useSavedIngredients}`);
 
-    // If the saved ingredients setting is enabled, retrieve the saved ingredients from local storage
-    // Otherwise, use the ingredients entered by the user
     const ingredientsToUse = useSavedIngredients
       ? getCheckedItemsFromLocalStorage()
       : ingredients;
@@ -131,7 +128,11 @@ const AIBartender = () => {
         <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
         <div className='drawer-content flex flex-col items-center justify-center'>
           {/* Chat section */}
-          <div className='flex-grow w-full h-full flex flex-col p-6 bg-black bg-opacity-75 overflow-auto'>
+          <div
+            className={`flex-grow w-full h-full flex flex-col p-6 overflow-auto ${
+              showBackground ? 'bg-black bg-opacity-75' : ''
+            }`}
+          >
             <div className='flex items-center'>
               <label
                 htmlFor='my-drawer-2'
@@ -139,7 +140,11 @@ const AIBartender = () => {
               >
                 <MdMenuOpen size={24} />
               </label>
-              <h2 className='text-xl font-bold text-white'>
+              <h2
+                className={`text-xl font-bold ${
+                  showBackground ? 'text-white' : 'text-base-content'
+                }`}
+              >
                 AI Bartender ({bartender})
               </h2>
             </div>
@@ -153,7 +158,7 @@ const AIBartender = () => {
                   </div>
                 )}
                 <div className='chat chat-start'>
-                  <div className='chat-bubble chat-bubble-neutral'>
+                  <div className='chat-bubble chat-bubble-accent'>
                     {initialPrompt}
                   </div>
                 </div>
@@ -204,7 +209,7 @@ const AIBartender = () => {
                     </div>
                   )}
                   <div className='chat chat-start'>
-                    <div className='chat-bubble chat-bubble-neutral font-tech flex items-center justify-center'>
+                    <div className='chat-bubble chat-bubble-accent font-tech flex items-center justify-center'>
                       {isLoading ? (
                         <span className='loading loading-dots loading-lg'></span>
                       ) : (
@@ -264,15 +269,15 @@ const AIBartender = () => {
             </li>
             <dialog id='my_modal_1' className='modal'>
               <div className='modal-box'>
-                <h3 className='font-bold text-lg'>Settings</h3>
-                <BartenderSettings updateSettings={updateSettings} />
-                {/* Display the BartenderSettings component */}
-                <div className='modal-action'>
+                <div className='flex justify-between items-center px-4'>
+                  <h3 className='font-bold text-lg'>Settings</h3>
                   <form method='dialog'>
-                    {/* if there is a button in form, it will close the modal */}
-                    <button className='btn'>Close</button>
+                    <button className='btn btn-ghost  '>
+                      <IoClose size={24} />
+                    </button>
                   </form>
                 </div>
+                <BartenderSettings updateSettings={updateSettings} />
               </div>
             </dialog>
             <li>

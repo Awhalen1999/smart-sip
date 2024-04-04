@@ -48,7 +48,6 @@ const ingredientsList = {
     'Tomato Juice',
     'Coconut Water',
     'Sprite',
-    'Coca-Cola',
     'Lemonade',
     'Iced Tea',
     'Energy Drink',

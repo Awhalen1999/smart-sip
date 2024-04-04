@@ -10,7 +10,7 @@ import {
   removeCustomItemFromLocalStorage,
 } from '../../utils/api.js';
 import { MdMenuOpen } from 'react-icons/md';
-import { IoAddOutline } from 'react-icons/io5';
+import { IoAddOutline, IoClose } from 'react-icons/io5';
 import { TiDelete } from 'react-icons/ti';
 
 const AvailableIngredients = () => {
@@ -60,7 +60,7 @@ const AvailableIngredients = () => {
 
   const handleDeleteItem = (category, item) => {
     removeItemFromLocalStorage(item);
-    removeCustomItemFromLocalStorage(category, item); // Use the function
+    removeCustomItemFromLocalStorage(category, item);
     setCheckedItems(checkedItems.filter((i) => i !== item));
     setCustomItems((prevItems) => ({
       ...prevItems,
@@ -104,7 +104,7 @@ const AvailableIngredients = () => {
                     .map((item, index) => (
                       <div
                         key={index}
-                        className='border border-base-content px-6 py-2 rounded text-md'
+                        className='border border-base-content pr-10 pl-2 py-2 rounded text-md'
                       >
                         <label className='flex items-center'>
                           <input
@@ -159,7 +159,13 @@ const AvailableIngredients = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <FaSearch />
+            {searchTerm ? (
+              <button onClick={() => setSearchTerm('')}>
+                <IoClose size={24} />
+              </button>
+            ) : (
+              <FaSearch />
+            )}
           </label>
         </ul>
       </div>

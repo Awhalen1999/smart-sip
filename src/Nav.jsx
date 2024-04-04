@@ -90,7 +90,7 @@ const Nav = () => {
             <FaRegMoon className='swap-off fill-current w-7 h-7' />
           )}
         </label>
-        <a className='btn mr-2'>Login</a>
+        <a className='btn btn-outline mr-2'>Login</a>
       </div>
     </div>
   );
