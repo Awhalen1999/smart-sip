@@ -1,3 +1,6 @@
+//todo: fix issue where when star is clicked the details are opened
+//todo: fix issue where if drink is just recently added favorites don't work
+
 import React, { useEffect, useState } from 'react';
 import {
   getDrinksFromLocalStorage,
