@@ -299,7 +299,7 @@ const AIBartender = () => {
                           </div>
                         </div>
                         <div className='flex-grow flex flex-col justify-center items-start space-y-2 ml-4'>
-                          <h3 className='text-white'>{bartenderKey}</h3>
+                          <h3 className='text-base-content'>{bartenderKey}</h3>
                           <button
                             onClick={() => setBartender(bartenderKey)}
                             className='btn btn-primary'
