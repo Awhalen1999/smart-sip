@@ -123,8 +123,8 @@ export function saveDrinkToLocalStorage(drink) {
       return;
     }
 
-    // Save the drink as an object with title, description, and recipe properties
-    drinks.push({ title, description, recipe });
+    // Save the drink as an object with title, description, recipe, and favorite properties
+    drinks.push({ title, description, recipe, favorite: false });
     localStorage.setItem('drinks', JSON.stringify(drinks));
   } catch (error) {
     console.error('Error saving drink to local storage:', error);
