@@ -112,7 +112,7 @@ const AIBartender = () => {
 
   return (
     <div
-      className={`flex ${showBackground ? '' : 'bg-neutral'}`}
+      className={`flex h-screen w-screen ${showBackground ? '' : 'bg-neutral'}`}
       style={
         showBackground
           ? {
