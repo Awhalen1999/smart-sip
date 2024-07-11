@@ -1,18 +1,11 @@
-//todo
-// 3. better icons
-// 4. page height
-// 5. settings page
-// 7. change outline color of bartender list for light theme
-// 8.
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import BartenderInfo from './BartenderInfo';
+import { Link } from 'react-router-dom';
 import { MdMenuOpen, MdPersonOutline } from 'react-icons/md';
 import { CiBoxList, CiReceipt } from 'react-icons/ci';
 import { FaRegStar } from 'react-icons/fa';
 import { IoSettingsOutline, IoClose } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
+import BartenderInfo from './BartenderInfo';
 import BartenderSettings from './BartenderSettings';
 import {
   getSettingFromLocalStorage,
@@ -39,16 +32,7 @@ const AIBartender = () => {
     getSettingFromLocalStorage('nonAlcoholicMode')
   );
 
-  const updateSettings = () => {
-    setUseSavedIngredients(getSettingFromLocalStorage('useSavedIngredients'));
-    setShowBackground(getSettingFromLocalStorage('showBackground'));
-    setShowBartenderImage(getSettingFromLocalStorage('showBartenderImage'));
-    setNonAlcoholicMode(getSettingFromLocalStorage('nonAlcoholicMode'));
-    // Add more updates here as needed
-  };
-
-  const bartenders = Object.keys(BartenderInfo); // List of bartenders
-
+  const bartenders = Object.keys(BartenderInfo);
   const [initialPrompt, setInitialPrompt] = useState(
     BartenderInfo[bartender].initialPrompt
   );
@@ -58,21 +42,23 @@ const AIBartender = () => {
     setRecipe('');
   }, [bartender]);
 
+  useEffect(() => {
+    updateSettings();
+  }, []);
+
+  const updateSettings = () => {
+    setUseSavedIngredients(getSettingFromLocalStorage('useSavedIngredients'));
+    setShowBackground(getSettingFromLocalStorage('showBackground'));
+    setShowBartenderImage(getSettingFromLocalStorage('showBartenderImage'));
+    setNonAlcoholicMode(getSettingFromLocalStorage('nonAlcoholicMode'));
+  };
+
   const handleSubmit = async (quickStart = false) => {
     setIsLoading(true);
-
-    const useSavedIngredients = getSettingFromLocalStorage(
-      'useSavedIngredients'
-    );
-    console.log(`useSavedIngredients: ${useSavedIngredients}`);
 
     const ingredientsToUse = useSavedIngredients
       ? getCheckedItemsFromLocalStorage()
       : ingredients;
-    console.log(`ingredientsToUse: ${ingredientsToUse}`);
-
-    const nonAlcoholicMode = getSettingFromLocalStorage('nonAlcoholicMode');
-    console.log(`nonAlcoholicMode: ${nonAlcoholicMode}`);
 
     const userPrompt = quickStart
       ? `Give me a random cocktail recipe. ${
@@ -80,20 +66,13 @@ const AIBartender = () => {
         }`
       : `I want a drink that is ${drinkDescription}. I have these ingredients: ${ingredientsToUse}. ${
           nonAlcoholicMode ? 'I would like non-alcoholic drinks.' : ''
-        } Thank you! `;
-    console.log(`User prompt: ${userPrompt}`);
+        } Thank you!`;
 
     const data = {
       model: 'gpt-3.5-turbo',
       messages: [
-        {
-          role: 'system',
-          content: BartenderInfo[bartender].persona,
-        },
-        {
-          role: 'user',
-          content: userPrompt,
-        },
+        { role: 'system', content: BartenderInfo[bartender].persona },
+        { role: 'user', content: userPrompt },
       ],
     };
 
@@ -101,13 +80,18 @@ const AIBartender = () => {
       Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
     };
 
-    axios
-      .post('https://api.openai.com/v1/chat/completions', data, { headers })
-      .then((response) => {
-        const message = response.data.choices[0].message.content;
-        setRecipe(message);
-        setIsLoading(false);
-      });
+    try {
+      const response = await axios.post(
+        'https://api.openai.com/v1/chat/completions',
+        data,
+        { headers }
+      );
+      setRecipe(response.data.choices[0].message.content);
+    } catch (error) {
+      console.error('Error fetching recipe:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -123,11 +107,9 @@ const AIBartender = () => {
           : {}
       }
     >
-      {/* DaisyUI drawer */}
       <div className='drawer lg:drawer-open font-main'>
         <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
         <div className='drawer-content flex flex-col items-center justify-center'>
-          {/* Chat section */}
           <div
             className={`flex-grow w-full h-full flex flex-col p-6 overflow-auto ${
               showBackground ? 'bg-black bg-opacity-75' : ''
@@ -153,7 +135,10 @@ const AIBartender = () => {
                 {showBartenderImage && (
                   <div className='avatar'>
                     <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-black ring-offset-2'>
-                      <img src={BartenderInfo[bartender].picture} />
+                      <img
+                        src={BartenderInfo[bartender].picture}
+                        alt='Bartender'
+                      />
                     </div>
                   </div>
                 )}
@@ -172,7 +157,7 @@ const AIBartender = () => {
               className='textarea textarea-primary w-1/2 mt-5'
               placeholder='Describe a drink (optional):'
             />
-            {!getSettingFromLocalStorage('useSavedIngredients') && (
+            {!useSavedIngredients && (
               <textarea
                 value={ingredients}
                 onChange={(e) => setIngredients(e.target.value)}
@@ -196,15 +181,16 @@ const AIBartender = () => {
                 Random drink / Quick Start
               </button>
             </div>
-            {/* AI recipe returned: */}
-
             {isLoading || recipe ? (
               <div className='mt-5'>
                 <div className='flex items-end'>
                   {showBartenderImage && (
                     <div className='avatar'>
                       <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-black ring-offset-2'>
-                        <img src={BartenderInfo[bartender].picture} />
+                        <img
+                          src={BartenderInfo[bartender].picture}
+                          alt='Bartender'
+                        />
                       </div>
                     </div>
                   )}
@@ -218,18 +204,17 @@ const AIBartender = () => {
                     </div>
                   </div>
                 </div>
-                {!isLoading && recipe ? (
+                {!isLoading && recipe && (
                   <button
                     onClick={() => saveDrinkToLocalStorage(recipe)}
                     className='btn btn-success mt-2'
                   >
                     Save Recipe
                   </button>
-                ) : null}
+                )}
               </div>
             ) : null}
           </div>
-          {/* end of page content */}
         </div>
         <div className='drawer-side'>
           <label
@@ -238,7 +223,6 @@ const AIBartender = () => {
             className='drawer-overlay'
           ></label>
           <ul className='menu p-4 w-80 min-h-full bg-base-200 text-base-content'>
-            {/* Sidebar content here */}
             <li className='my-2 text-lg'>
               <Link to='/ingredients'>
                 <CiBoxList size={22} />
@@ -272,7 +256,7 @@ const AIBartender = () => {
                 <div className='flex justify-between items-center px-4'>
                   <h3 className='font-bold text-lg'>Settings</h3>
                   <form method='dialog'>
-                    <button className='btn btn-ghost  '>
+                    <button className='btn btn-ghost'>
                       <IoClose size={24} />
                     </button>
                   </form>
@@ -286,7 +270,7 @@ const AIBartender = () => {
                   <MdPersonOutline size={22} />
                   Bartenders
                 </summary>
-                <ul className='p-2 mt-1 bg-base-100 rounded-xl border'>
+                <ul className='p-2 mt-1 bg-base-100 rounded-xl border border-base-content'>
                   {bartenders.map((bartenderKey) => (
                     <li key={bartenderKey}>
                       <div className='w-full h-22 bg-base rounded-xl flex my-1'>

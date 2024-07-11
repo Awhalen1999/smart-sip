@@ -1,7 +1,5 @@
-//todo: fix issue where when star is clicked the details are opened
-//todo: fix issue where if drink is just recently added favorites don't work
-
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   getDrinksFromLocalStorage,
   deleteDrinkFromLocalStorage,
@@ -39,43 +37,52 @@ const SavedRecipes = () => {
 
   return (
     <div className='p-4 space-y-4'>
-      {drinks.map((drink, index) => (
-        <details key={index} className='collapse bg-neutral rounded-lg p-4'>
-          <summary className='collapse-title text-xl font-medium'>
-            <div className='flex justify-between items-center w-full'>
-              <div className='flex items-center'>
-                <button
-                  onClick={() => handleToggleFavorite(drink.title)}
-                  className='mr-3 text-warning'
-                >
-                  {drink.favorite ? (
-                    <FaStar size={24} />
-                  ) : (
-                    <FaRegStar size={24} />
-                  )}
-                </button>
+      {drinks.length > 0 ? (
+        drinks.map((drink, index) => (
+          <details key={index} className='collapse bg-neutral rounded-lg p-4'>
+            <summary className='collapse-title text-xl font-medium'>
+              <div className='flex justify-between items-center w-full'>
                 <div className='flex items-center'>
-                  <span className='mr-4'>{drink.title}</span>{' '}
-                  <FaChevronDown size={18} />
+                  <button
+                    onClick={() => handleToggleFavorite(drink.title)}
+                    className='mr-3 text-warning'
+                  >
+                    {drink.favorite ? (
+                      <FaStar size={24} />
+                    ) : (
+                      <FaRegStar size={24} />
+                    )}
+                  </button>
+                  <div className='flex items-center'>
+                    <span className='mr-4'>{drink.title}</span>
+                    <FaChevronDown size={18} />
+                  </div>
                 </div>
+                <button
+                  onClick={() => handleDeleteDrink(drink.title)}
+                  className='btn btn-error rounded-lg'
+                >
+                  <TiDelete size={22} />
+                </button>
               </div>
-              <button
-                onClick={() => handleDeleteDrink(drink.title)}
-                className='btn btn-error rounded-lg'
-              >
-                <TiDelete size={22} />
-              </button>
+            </summary>
+            <div className='divider'></div>
+            <div className='collapse-content'>
+              <p className='mt-2 text-lg font-semibold'>Description:</p>
+              <p className='mt-1'>{drink.description}</p>
+              <p className='mt-4 text-lg font-semibold'>Recipe:</p>
+              <p className='mt-1'>{drink.recipe}</p>
             </div>
-          </summary>
-          <div className='divider'></div>
-          <div className='collapse-content'>
-            <p className='mt-2 text-lg font-semibold'>Description:</p>
-            <p className='mt-1'>{drink.description}</p>
-            <p className='mt-4 text-lg font-semibold'>Recipe:</p>
-            <p className='mt-1'>{drink.recipe}</p>
-          </div>
-        </details>
-      ))}
+          </details>
+        ))
+      ) : (
+        <div className='flex flex-col items-center mt-6'>
+          <p className='text-lg font-semibold mb-4'>No drinks saved yet.</p>
+          <Link to='/bartender' className='btn btn-primary'>
+            Create some new drinks
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

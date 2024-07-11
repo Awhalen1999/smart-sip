@@ -11,7 +11,7 @@ const defaultSettings = {
   showBartenderImage: false,
 };
 
-const BartenderSettings = (props) => {
+const BartenderSettings = ({ updateSettings }) => {
   const [settings, setSettings] = useState(defaultSettings);
 
   useEffect(() => {
@@ -19,7 +19,6 @@ const BartenderSettings = (props) => {
       acc[key] = getSettingFromLocalStorage(key) || defaultSettings[key];
       return acc;
     }, {});
-
     setSettings(initialSettings);
   }, []);
 
@@ -28,82 +27,48 @@ const BartenderSettings = (props) => {
     const newSettings = { ...settings, [name]: checked };
     setSettings(newSettings);
     saveSettingsToLocalStorage(name, checked);
-    props.updateSettings(); // Update the settings in the AIBartender component
+    updateSettings();
   };
+
+  const renderSetting = (name, label, description) => (
+    <div>
+      <label className='flex items-center space-x-3 mb-1'>
+        <input
+          type='checkbox'
+          className='toggle toggle-success'
+          name={name}
+          checked={settings[name]}
+          onChange={handleCheckboxChange}
+        />
+        <span>{label}</span>
+      </label>
+      <p className='text-sm text-neutral-content'>{description}</p>
+    </div>
+  );
 
   return (
     <div className='p-4 space-y-4'>
       <h1 className='text-lg font-semibold'>Bartender Settings</h1>
-
-      <div>
-        <label className='flex items-center space-x-3 mb-1'>
-          <input
-            type='checkbox'
-            className='toggle toggle-success'
-            name='useSavedIngredients'
-            checked={settings.useSavedIngredients}
-            onChange={handleCheckboxChange}
-          />
-          <span>Use Saved Ingredients</span>
-        </label>
-        <p className='text-sm text-neutral-content'>
-          Enable this setting to allow the AI bartender to utilize previously
-          saved ingredients from your profile for creating custom drinks.
-        </p>
-      </div>
-
-      <div>
-        <label className='flex items-center space-x-3 mb-1'>
-          <input
-            type='checkbox'
-            className='toggle toggle-success'
-            name='nonAlcoholicMode'
-            checked={settings.nonAlcoholicMode}
-            onChange={handleCheckboxChange}
-          />
-          <span>Non-Alcoholic Mode</span>
-        </label>
-        <p className='text-sm text-neutral-content'>
-          Enable this mode for a selection of non-alcoholic drink options
-          tailored to your preferences, perfect for those seeking refreshing
-          alternatives.
-        </p>
-      </div>
-
-      <div>
-        <label className='flex items-center space-x-3 mb-1'>
-          <input
-            type='checkbox'
-            className='toggle toggle-success'
-            name='showBackground'
-            checked={settings.showBackground}
-            onChange={handleCheckboxChange}
-          />
-          <span>Show Background</span>
-        </label>
-        <p className='text-sm text-neutral-content'>
-          Enable this setting to display a unique background for each bartender,
-          setting the ambiance for your virtual bartending experience.
-        </p>
-      </div>
-
-      <div>
-        <label className='flex items-center space-x-3 mb-1'>
-          <input
-            type='checkbox'
-            className='toggle toggle-success'
-            name='showBartenderImage'
-            checked={settings.showBartenderImage}
-            onChange={handleCheckboxChange}
-          />
-          <span>Show Bartender Image</span>
-        </label>
-        <p className='text-sm text-neutral-content'>
-          Enable this option to reveal a charming image of the AI bartender,
-          enhancing the visual appeal and personal connection to your cocktail
-          creation journey.
-        </p>
-      </div>
+      {renderSetting(
+        'useSavedIngredients',
+        'Use Saved Ingredients',
+        'Enable this setting to allow the AI bartender to utilize previously saved ingredients from your profile for creating custom drinks.'
+      )}
+      {renderSetting(
+        'nonAlcoholicMode',
+        'Non-Alcoholic Mode',
+        'Enable this mode for a selection of non-alcoholic drink options tailored to your preferences, perfect for those seeking refreshing alternatives.'
+      )}
+      {renderSetting(
+        'showBackground',
+        'Show Background',
+        'Enable this setting to display a unique background for each bartender, setting the ambiance for your virtual bartending experience.'
+      )}
+      {renderSetting(
+        'showBartenderImage',
+        'Show Bartender Image',
+        'Enable this option to reveal a charming image of the AI bartender, enhancing the visual appeal and personal connection to your cocktail creation journey.'
+      )}
     </div>
   );
 };

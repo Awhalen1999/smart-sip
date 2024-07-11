@@ -5,36 +5,27 @@ import SelectedIngredients from './SelectedIngredients';
 const IngredientsPage = () => {
   const [activeTab, setActiveTab] = useState('available');
 
+  const renderTabButton = (tabName, displayName) => (
+    <li className='me-2'>
+      <a
+        href='#'
+        onClick={() => setActiveTab(tabName)}
+        className={`inline-block p-4 rounded-t-lg ${
+          activeTab === tabName
+            ? 'text-primary-content bg-primary'
+            : 'hover:text-accent-content hover:bg-accent'
+        }`}
+      >
+        {displayName}
+      </a>
+    </li>
+  );
+
   return (
     <div>
       <ul className='flex flex-wrap text-sm font-medium text-center border-b border-accent'>
-        <li className='me-2'>
-          <a
-            href='#'
-            onClick={() => setActiveTab('available')}
-            aria-current='page'
-            className={`inline-block p-4 rounded-t-lg ${
-              activeTab === 'available'
-                ? 'text-primary-content bg-primary '
-                : 'hover:text-accent-content hover:bg-accent '
-            }`}
-          >
-            Available Ingredients
-          </a>
-        </li>
-        <li className='me-2'>
-          <a
-            href='#'
-            onClick={() => setActiveTab('selected')}
-            className={`inline-block p-4 rounded-t-lg ${
-              activeTab === 'selected'
-                ? 'text-primary-content bg-primary '
-                : 'hover:text-accent-content hover:bg-accent '
-            }`}
-          >
-            Selected Ingredients
-          </a>
-        </li>
+        {renderTabButton('available', 'Available Ingredients')}
+        {renderTabButton('selected', 'Selected Ingredients')}
       </ul>
       {activeTab === 'available' && <AvailableIngredients />}
       {activeTab === 'selected' && <SelectedIngredients />}
