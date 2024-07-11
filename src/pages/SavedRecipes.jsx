@@ -4,7 +4,7 @@ import {
   getDrinksFromLocalStorage,
   deleteDrinkFromLocalStorage,
   toggleFavoriteDrink,
-} from '../../utils/api';
+} from '../utils/api';
 import { TiDelete } from 'react-icons/ti';
 import { FaRegStar, FaStar, FaChevronDown } from 'react-icons/fa';
 
@@ -36,7 +36,7 @@ const SavedRecipes = () => {
   };
 
   return (
-    <div className='p-4 space-y-4'>
+    <div className='p-4 space-y-4 h-screen'>
       {drinks.length > 0 ? (
         drinks.map((drink, index) => (
           <details key={index} className='collapse bg-neutral rounded-lg p-4'>

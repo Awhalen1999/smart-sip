@@ -205,6 +205,7 @@ const AIBartender = () => {
                   </div>
                 </div>
                 {!isLoading && recipe && (
+                  // disable button after saving recipe
                   <button
                     onClick={() => saveDrinkToLocalStorage(recipe)}
                     className='btn btn-success mt-2'

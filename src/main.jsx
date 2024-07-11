@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import BartenderPage from './pages/bartender/BartenderPage';
 import IngredientsPage from './pages/ingredients/IngredientsPage';
-import SavedRecipes from './pages/saved-recipes/SavedRecipes';
+import SavedRecipes from './pages/SavedRecipes';
 import PopularRecipes from './pages/popular-recipes/PopularRecipes';
 import Nav from './components/Nav';
 
