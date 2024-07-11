@@ -1,4 +1,4 @@
-// Adds an item to local storage if it doesn't already exist
+// Adds an item to local storage if it doesn't already exist.
 export function addItemToLocalStorage(item) {
   try {
     let items = getCheckedItemsFromLocalStorage();
