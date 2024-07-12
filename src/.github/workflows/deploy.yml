@@ -1,21 +1,30 @@
 name: Build and Deploy
+
 on:
   push:
     branches:
       - main
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout the repository
         uses: actions/checkout@v2
-      - name: Install and Build
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies and build
         run: |
           npm ci
           npm run build
         env:
           VITE_OPENAI_API_KEY: ${{ secrets.VITE_OPENAI_API_KEY }}
-      - name: Deploy
+
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
