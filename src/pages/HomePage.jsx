@@ -22,12 +22,13 @@ const HomePage = () => {
                 Create and discover amazing new drinks with the help of our AI
                 bartender.
               </p>
-              <button
-                onClick={() => navigate('/bartender')}
-                className='btn btn-primary text-primary-content text-lg py-2 px-6 font-semibold'
+              <Link
+                to='/bartender'
+                className='btn btn-primary text-primary-content text-lg py-2
+                px-6 font-semibold'
               >
                 Get Started
-              </button>
+              </Link>
             </div>
           </div>
         </div>
