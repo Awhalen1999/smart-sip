@@ -14,7 +14,7 @@ if (!root) throw new Error('No root element found');
 
 createRoot(root).render(
   <React.StrictMode>
-    <Router>
+    <Router basename='/SmartSip/'>
       <Nav />
       <Routes>
         <Route path='/' element={<HomePage />} />
