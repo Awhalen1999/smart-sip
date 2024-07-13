@@ -22,12 +22,13 @@ const AIBartender = () => {
   const [useSavedIngredients, setUseSavedIngredients] = useState(
     getSettingFromLocalStorage('useSavedIngredients')
   );
-  const [showBackground, setShowBackground] = useState(
-    getSettingFromLocalStorage('showBackground')
+  const [hideBackground, setHideBackground] = useState(
+    getSettingFromLocalStorage('hideBackground')
   );
-  const [showBartenderImage, setShowBartenderImage] = useState(
-    getSettingFromLocalStorage('showBartenderImage')
+  const [hideBartenderImage, setHideBartenderImage] = useState(
+    getSettingFromLocalStorage('hideBartenderImage')
   );
+
   const [nonAlcoholicMode, setNonAlcoholicMode] = useState(
     getSettingFromLocalStorage('nonAlcoholicMode')
   );
@@ -48,8 +49,8 @@ const AIBartender = () => {
 
   const updateSettings = () => {
     setUseSavedIngredients(getSettingFromLocalStorage('useSavedIngredients'));
-    setShowBackground(getSettingFromLocalStorage('showBackground'));
-    setShowBartenderImage(getSettingFromLocalStorage('showBartenderImage'));
+    setHideBackground(getSettingFromLocalStorage('hideBackground'));
+    setHideBartenderImage(getSettingFromLocalStorage('hideBartenderImage'));
     setNonAlcoholicMode(getSettingFromLocalStorage('nonAlcoholicMode'));
   };
 
@@ -96,15 +97,15 @@ const AIBartender = () => {
 
   return (
     <div
-      className={`flex h-screen w-screen ${showBackground ? '' : 'bg-neutral'}`}
+      className={`flex h-screen w-screen ${hideBackground ? 'bg-neutral' : ''}`}
       style={
-        showBackground
-          ? {
+        hideBackground
+          ? {}
+          : {
               backgroundImage: `url(${BartenderInfo[bartender].background})`,
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat',
             }
-          : {}
       }
     >
       <div className='drawer lg:drawer-open font-main'>
@@ -112,7 +113,7 @@ const AIBartender = () => {
         <div className='drawer-content flex flex-col items-center justify-center'>
           <div
             className={`flex-grow w-full h-full flex flex-col p-6 overflow-auto ${
-              showBackground ? 'bg-black bg-opacity-75' : ''
+              hideBackground ? 'bg-black bg-opacity-75' : ''
             }`}
           >
             <div className='flex items-center'>
@@ -124,7 +125,7 @@ const AIBartender = () => {
               </label>
               <h2
                 className={`text-xl font-bold ${
-                  showBackground ? 'text-white' : 'text-base-content'
+                  hideBackground ? 'text-white' : 'text-base-content'
                 }`}
               >
                 AI Bartender ({bartender})
@@ -132,7 +133,7 @@ const AIBartender = () => {
             </div>
             <div className='mt-2'>
               <div className='flex items-center'>
-                {showBartenderImage && (
+                {!hideBartenderImage && (
                   <div className='avatar'>
                     <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-black ring-offset-2'>
                       <img
@@ -184,7 +185,7 @@ const AIBartender = () => {
             {isLoading || recipe ? (
               <div className='mt-5'>
                 <div className='flex items-end'>
-                  {showBartenderImage && (
+                  {!hideBartenderImage && (
                     <div className='avatar'>
                       <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-black ring-offset-2'>
                         <img

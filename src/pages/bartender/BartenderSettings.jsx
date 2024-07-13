@@ -7,8 +7,8 @@ import {
 const defaultSettings = {
   useSavedIngredients: false,
   nonAlcoholicMode: false,
-  showBackground: false,
-  showBartenderImage: false,
+  hideBackground: false,
+  hideBartenderImage: false,
 };
 
 const BartenderSettings = ({ updateSettings }) => {
@@ -60,14 +60,14 @@ const BartenderSettings = ({ updateSettings }) => {
         'Enable this mode for a selection of non-alcoholic drink options tailored to your preferences, perfect for those seeking refreshing alternatives.'
       )}
       {renderSetting(
-        'showBackground',
-        'Show Background',
-        'Enable this setting to display a unique background for each bartender, setting the ambiance for your virtual bartending experience.'
+        'hideBackground',
+        'Hide Background',
+        'Enable this setting to hide the unique background for each bartender. By default, a unique background is displayed for each bartender, setting the ambiance for your virtual bartending experience.'
       )}
       {renderSetting(
-        'showBartenderImage',
-        'Show Bartender Image',
-        'Enable this option to reveal a charming image of the AI bartender, enhancing the visual appeal and personal connection to your cocktail creation journey.'
+        'hideBartenderImage',
+        'Hide Bartender Image',
+        'Enable this option to hide the image of the AI bartender. By default, a charming image of the AI bartender is displayed, enhancing the visual appeal and personal connection to your cocktail creation journey.'
       )}
     </div>
   );
