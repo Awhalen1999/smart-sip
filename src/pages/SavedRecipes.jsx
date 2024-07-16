@@ -36,7 +36,7 @@ const SavedRecipes = () => {
   };
 
   return (
-    <div className='px-10 py-4 space-y-4 h-screen'>
+    <div className='px-10 py-4 space-y-4 '>
       {drinks.length > 0 ? (
         drinks.map((drink, index) => (
           <details key={index} className='collapse bg-neutral rounded-lg p-2'>

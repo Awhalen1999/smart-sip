@@ -51,7 +51,7 @@ const SelectedIngredients = () => {
   );
 
   return (
-    <div className='px-8 py-4 min-h-screen'>
+    <div className='px-8  '>
       {Object.entries(ingredientsList).map(([category, items]) =>
         renderCategoryItems(category, items)
       )}

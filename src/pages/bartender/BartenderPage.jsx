@@ -125,7 +125,7 @@ const AIBartender = () => {
         <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
         <div className='drawer-content flex flex-col items-center justify-center'>
           <div
-            className={`flex-grow w-full max-h-screen flex flex-col p-6 overflow-auto ${
+            className={`flex-grow w-full h-full flex flex-col p-6 overflow-auto ${
               hideBackground ? 'bg-black bg-opacity-75' : ''
             }`}
           >

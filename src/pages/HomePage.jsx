@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import heroImage from '../assets/hero-image.png';
+import heroImage from '../assets/hero-image-upscale.png';
 import bartenderImage from '../assets/bartender-image.png';
 import ingredientsImage from '../assets/ingredients-image.png';
 import recipesImage from '../assets/recipes-image.png';

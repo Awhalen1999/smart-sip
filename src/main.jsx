@@ -15,14 +15,18 @@ if (!root) throw new Error('No root element found');
 createRoot(root).render(
   <React.StrictMode>
     <Router basename='/SmartSip/'>
-      <Nav />
-      <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/bartender' element={<BartenderPage />} />
-        <Route path='/ingredients' element={<IngredientsPage />} />
-        <Route path='/saved-recipes' element={<SavedRecipes />} />
-        <Route path='/popular-recipes' element={<PopularRecipes />} />
-      </Routes>
+      <div className='app-container'>
+        <Nav />
+        <div className='content-container'>
+          <Routes>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/bartender' element={<BartenderPage />} />
+            <Route path='/ingredients' element={<IngredientsPage />} />
+            <Route path='/saved-recipes' element={<SavedRecipes />} />
+            <Route path='/popular-recipes' element={<PopularRecipes />} />
+          </Routes>
+        </div>
+      </div>
     </Router>
   </React.StrictMode>
 );
