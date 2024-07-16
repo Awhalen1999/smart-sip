@@ -33,26 +33,25 @@ const HomePage = () => {
 
   return (
     <div className='font-main'>
-      <div className='mt-4'>
+      <div>
         {/* hero */}
-        <div className='hero'>
-          <div className='hero-content flex flex-col flex-wrap lg:flex-row lg:items-center '>
-            <img
-              src={heroImage}
-              className='w-full lg:max-w-sm max-w-full rounded-lg shadow-2xl mb-6 lg:mb-0'
-            />
-            <div className='lg:ml-10 text-center lg:text-left'>
-              <h1 className='text-5xl font-bold font-header text-base-content'>
-                SmartSip AI
-              </h1>
-              <p className='py-6 text-lg font-semibold'>
+        <div
+          className='hero min-h-screen'
+          style={{
+            backgroundImage: `url(${heroImage})`,
+          }}
+        >
+          <div className='hero-overlay bg-black bg-opacity-65'></div>
+          <div className='hero-content text-white text-center'>
+            <div className='max-w-md'>
+              <h1 className='mb-5 text-5xl font-bold'>SmartSip AI</h1>
+              <p className='mb-5'>
                 Create and discover amazing new drinks with the help of our AI
                 bartender.
               </p>
               <Link
                 to='/bartender'
-                className='btn btn-primary text-primary-content text-lg py-2
-px-6 font-semibold'
+                className='btn btn-primary text-primary-content text-lg py-2 px-6 font-semibold'
               >
                 Get Started
               </Link>
