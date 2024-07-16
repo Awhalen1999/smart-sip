@@ -36,9 +36,12 @@ const HomePage = () => {
       <div className='mt-4'>
         {/* hero */}
         <div className='hero'>
-          <div className='hero-content flex-col lg:flex-row'>
-            <img src={heroImage} className='max-w-sm rounded-lg shadow-2xl' />
-            <div className='lg:ml-6 text-center lg:text-left'>
+          <div className='hero-content flex flex-col flex-wrap lg:flex-row lg:items-center '>
+            <img
+              src={heroImage}
+              className='w-full lg:max-w-sm max-w-full rounded-lg shadow-2xl mb-6 lg:mb-0'
+            />
+            <div className='lg:ml-10 text-center lg:text-left'>
               <h1 className='text-5xl font-bold font-header text-base-content'>
                 SmartSip AI
               </h1>
