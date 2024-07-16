@@ -97,7 +97,9 @@ const AIBartender = () => {
 
   return (
     <div
-      className={`flex h-screen w-screen ${hideBackground ? 'bg-neutral' : ''}`}
+      className={`flex h-full w-screen overflow-scroll  ${
+        hideBackground ? 'bg-neutral' : ''
+      }`}
       style={
         hideBackground
           ? {}
@@ -125,7 +127,7 @@ const AIBartender = () => {
         <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
         <div className='drawer-content flex flex-col items-center justify-center'>
           <div
-            className={`flex-grow w-full h-full flex flex-col p-6 overflow-auto ${
+            className={`flex-grow w-full h-full  flex flex-col p-6 ${
               hideBackground ? 'bg-black bg-opacity-75' : ''
             }`}
           >
@@ -236,13 +238,13 @@ const AIBartender = () => {
             ) : null}
           </div>
         </div>
-        <div className='drawer-side'>
+        <div className='drawer-side h-full'>
           <label
             htmlFor='my-drawer-2'
             aria-label='close sidebar'
             className='drawer-overlay'
           ></label>
-          <ul className='menu p-4 w-80 min-h-full bg-base-300 text-base-content'>
+          <ul className='menu pl-2 pr-8 w-80 min-h-full bg-base-300 text-base-content'>
             <li className='my-2 text-lg'>
               <Link to='/ingredients'>
                 <CiBoxList size={22} />

@@ -24,7 +24,6 @@
   }
 }
 
-/* Ensure the body and html take full height */
 html,
 body {
   height: 100%;
@@ -32,24 +31,20 @@ body {
   padding: 0;
 }
 
-/* Ensure the root div takes full height */
 #root {
   height: 100%;
 }
 
-/* Flex container for the app */
 .app-container {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-/* Fixed height for the navbar */
 .navbar {
   flex-shrink: 0;
 }
 
-/* Make content container expand to fill remaining space */
 .content-container {
   flex-grow: 1;
   overflow-y: auto;
