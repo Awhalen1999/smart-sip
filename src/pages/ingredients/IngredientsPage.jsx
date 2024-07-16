@@ -23,7 +23,7 @@ const IngredientsPage = () => {
 
   return (
     <div>
-      <ul className='ml-1 flex flex-wrap text-sm font-medium text-center border-b border-accent'>
+      <ul className='ml-1 pt-4 flex flex-wrap text-sm font-medium text-center border-b border-accent'>
         {renderTabButton('available', 'Available Ingredients')}
         {renderTabButton('selected', 'Selected Ingredients')}
       </ul>

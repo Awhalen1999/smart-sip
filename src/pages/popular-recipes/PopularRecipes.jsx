@@ -4,7 +4,7 @@ import { FaChevronDown } from 'react-icons/fa';
 
 const PopularRecipes = () => {
   return (
-    <div className='px-10 space-y-4 h-screen'>
+    <div className='px-10 py-4 space-y-4 h-screen'>
       {popularDrinks.map((drink, index) => (
         <details key={index} className='collapse bg-neutral rounded-lg p-2'>
           <summary className='collapse-title text-xl font-medium'>
