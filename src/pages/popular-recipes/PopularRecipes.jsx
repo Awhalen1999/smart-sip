@@ -6,7 +6,10 @@ const PopularRecipes = () => {
   return (
     <div className='px-10 py-4 space-y-4'>
       {popularDrinks.map((drink, index) => (
-        <details key={index} className='collapse bg-neutral rounded-lg p-2'>
+        <details
+          key={index}
+          className='collapse bg-neutral rounded-lg p-2 border border-accent'
+        >
           <summary className='collapse-title text-xl font-medium'>
             <div className='flex justify-between items-center w-full'>
               <div className='flex items-center'>
