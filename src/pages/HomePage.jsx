@@ -7,14 +7,41 @@ import recipesImage from '../assets/recipes-image.png';
 import { FaLinkedin, FaGithub } from 'react-icons/fa';
 
 const HomePage = () => {
+  const features = [
+    {
+      name: 'Bartender',
+      route: '/bartender',
+      image: bartenderImage,
+      description:
+        "Whatever you're in the mood for, our AI bartender can make it happen.",
+    },
+    {
+      name: 'Ingredients',
+      route: '/ingredients',
+      image: ingredientsImage,
+      description:
+        'Save your own ingredients, and our AI bartender will customize drinks based on your selections.',
+    },
+    {
+      name: 'Recipes',
+      route: '/saved-recipes',
+      image: recipesImage,
+      description:
+        'Save and share your favorite drinks, and explore other popular selections.',
+    },
+  ];
+
   return (
     <div className='font-main'>
       <div className='mt-4'>
         {/* hero */}
         <div className='hero'>
-          <div className='hero-content flex-col lg:flex-row'>
-            <img src={heroImage} className='max-w-sm rounded-lg shadow-2xl' />
-            <div className='ml-10'>
+          <div className='hero-content flex flex-col lg:flex-row items-center lg:items-start'>
+            <img
+              src={heroImage}
+              className='max-w-sm rounded-lg shadow-2xl mb-6 lg:mb-0'
+            />
+            <div className='lg:ml-10 text-center lg:text-left'>
               <h1 className='text-5xl font-bold font-header text-base-content'>
                 SmartSip AI
               </h1>
@@ -37,55 +64,28 @@ const HomePage = () => {
           <div className='text-lg font-semibold mt-4 ml-2'>
             Get started with these key features
           </div>
-          <div className='mt-6 font-main mx-auto flex justify-between gap-x-12'>
-            <Link
-              to='/bartender'
-              className='item transform transition duration-300 ease-in-out hover:scale-105'
-            >
-              <img
-                src={bartenderImage}
-                alt='bartender image'
-                className='rounded-xl'
-              />
-              <h2 className='my-2 font-semibold text-xl'>Bartender</h2>
-              <p>
-                Whatever you're in the mood for, our AI bartender can make it
-                happen.
-              </p>
-            </Link>
-
-            <Link
-              to='/ingredients'
-              className='item transform transition duration-300 ease-in-out hover:scale-105'
-            >
-              <img
-                src={ingredientsImage}
-                alt='ingredients image'
-                className='rounded-xl'
-              />
-              <h2 className='my-2 font-semibold text-xl'>Ingredients</h2>
-
-              <p>
-                Save your own ingredients, and our AI bartender will customize
-                drinks based on your selections.
-              </p>
-            </Link>
-
-            <Link
-              to='/saved-recipes'
-              className='item transform transition duration-300 ease-in-out hover:scale-105'
-            >
-              <img
-                src={recipesImage}
-                alt='recipes image'
-                className='rounded-xl'
-              />
-              <h2 className='my-2 font-semibold text-xl'>Recipes</h2>
-              <p>
-                Save and share your favorite drinks, and explore other popular
-                selections.
-              </p>
-            </Link>
+          <div className='mt-6 font-main mx-auto grid sm:grid-cols-2 md:grid-cols-3 gap-6'>
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className=' rounded-xl transform hover:scale-105 relative z-10'
+              >
+                <Link
+                  to={feature.route}
+                  className='text-xl bg-transparent flex flex-col items-center'
+                >
+                  <img
+                    src={feature.image}
+                    alt={`${feature.name} image`}
+                    className='w-full h-auto object-cover rounded-t-lg'
+                  />
+                  <div className='text-primary-content font-bold bg-primary rounded-b-lg hover:bg-accent w-full text-center'>
+                    {feature.name}
+                  </div>
+                  <p className='p-4'>{feature.description}</p>
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
         {/* footer */}
