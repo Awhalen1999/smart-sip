@@ -36,10 +36,10 @@ const SavedRecipes = () => {
   };
 
   return (
-    <div className='p-4 space-y-4 h-screen'>
+    <div className='px-10 space-y-4 h-screen'>
       {drinks.length > 0 ? (
         drinks.map((drink, index) => (
-          <details key={index} className='collapse bg-neutral rounded-lg p-4'>
+          <details key={index} className='collapse bg-neutral rounded-lg p-2'>
             <summary className='collapse-title text-xl font-medium'>
               <div className='flex justify-between items-center w-full'>
                 <div className='flex items-center'>
@@ -60,7 +60,7 @@ const SavedRecipes = () => {
                 </div>
                 <button
                   onClick={() => handleDeleteDrink(drink.title)}
-                  className='btn btn-error rounded-lg'
+                  className='btn btn-error rounded-lg ml-2'
                 >
                   <TiDelete size={22} />
                 </button>

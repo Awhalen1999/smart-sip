@@ -36,7 +36,7 @@ const HomePage = () => {
       <div className='mt-4'>
         {/* hero */}
         <div className='hero'>
-          <div className='hero-content flex flex-col lg:flex-row flex-wrap items-center lg:items-start'>
+          <div className='hero-content flex flex-col flex-wrap lg:flex-row lg:items-center '>
             <img
               src={heroImage}
               className='w-full lg:max-w-sm max-w-full rounded-lg shadow-2xl mb-6 lg:mb-0'
@@ -52,7 +52,7 @@ const HomePage = () => {
               <Link
                 to='/bartender'
                 className='btn btn-primary text-primary-content text-lg py-2
-        px-6 font-semibold'
+px-6 font-semibold'
               >
                 Get Started
               </Link>

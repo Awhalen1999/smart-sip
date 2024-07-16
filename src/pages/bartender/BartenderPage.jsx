@@ -28,10 +28,10 @@ const AIBartender = () => {
   const [hideBartenderImage, setHideBartenderImage] = useState(
     getSettingFromLocalStorage('hideBartenderImage')
   );
-
   const [nonAlcoholicMode, setNonAlcoholicMode] = useState(
     getSettingFromLocalStorage('nonAlcoholicMode')
   );
+  const [isSaved, setIsSaved] = useState(false);
 
   const bartenders = Object.keys(BartenderInfo);
   const [initialPrompt, setInitialPrompt] = useState(
@@ -108,6 +108,19 @@ const AIBartender = () => {
             }
       }
     >
+      <dialog id='my_modal_1' className='modal'>
+        <div className='modal-box border'>
+          <div className='flex justify-between items-center px-4'>
+            <h3 className='font-bold text-lg'>Settings</h3>
+            <form method='dialog'>
+              <button className='btn btn-ghost'>
+                <IoClose size={24} />
+              </button>
+            </form>
+          </div>
+          <BartenderSettings updateSettings={updateSettings} />
+        </div>
+      </dialog>
       <div className='drawer lg:drawer-open font-main'>
         <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
         <div className='drawer-content flex flex-col items-center justify-center'>
@@ -123,11 +136,7 @@ const AIBartender = () => {
               >
                 <MdMenuOpen size={24} />
               </label>
-              <h2
-                className={`text-xl font-bold ${
-                  hideBackground ? 'text-white' : 'text-base-content'
-                }`}
-              >
+              <h2 className='text-xl font-bold text-white bg-black bg-opacity-65 rounded px-1'>
                 AI Bartender ({bartender})
               </h2>
             </div>
@@ -135,7 +144,7 @@ const AIBartender = () => {
               <div className='flex items-center'>
                 {!hideBartenderImage && (
                   <div className='avatar'>
-                    <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-black ring-offset-2'>
+                    <div className='m-2 lg:w-24 md:w-20 w-16 rounded-full ring ring-primary ring-offset-black ring-offset-2'>
                       <img
                         src={BartenderInfo[bartender].picture}
                         alt='Bartender'
@@ -155,7 +164,7 @@ const AIBartender = () => {
               onChange={(e) => setDrinkDescription(e.target.value)}
               cols='30'
               rows='2'
-              className='textarea textarea-primary w-1/2 mt-5'
+              className='textarea textarea-primary lg:w-1/2 md:w-3/4 sm:w-full mt-5'
               placeholder='Describe a drink (optional):'
             />
             {!useSavedIngredients && (
@@ -164,20 +173,26 @@ const AIBartender = () => {
                 onChange={(e) => setIngredients(e.target.value)}
                 cols='30'
                 rows='2'
-                className='textarea textarea-primary w-1/2 mt-5'
+                className='textarea textarea-primary lg:w-1/2 md:w-3/4 sm:w-full mt-5'
                 placeholder='Available ingredients (optional):'
               />
             )}
-            <div className='flex items-start mt-5'>
+            <div className='flex lg:flex-row md:flex-row flex-col items-start mt-5'>
               <button
-                onClick={() => handleSubmit(false)}
-                className='btn btn-primary mr-2'
+                onClick={() => {
+                  handleSubmit(false);
+                  setIsSaved(false);
+                }}
+                className='btn btn-primary mr-4 mb-2'
               >
                 Make this drink
               </button>
               <button
-                onClick={() => handleSubmit(true)}
-                className='btn btn-primary ml-2'
+                onClick={() => {
+                  handleSubmit(true);
+                  setIsSaved(false);
+                }}
+                className='btn btn-primary '
               >
                 Random drink / Quick Start
               </button>
@@ -187,7 +202,7 @@ const AIBartender = () => {
                 <div className='flex items-end'>
                   {!hideBartenderImage && (
                     <div className='avatar'>
-                      <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-black ring-offset-2'>
+                      <div className='m-2 lg:w-24 md:w-20 w-16 rounded-full ring ring-primary ring-offset-black ring-offset-2'>
                         <img
                           src={BartenderInfo[bartender].picture}
                           alt='Bartender'
@@ -206,10 +221,13 @@ const AIBartender = () => {
                   </div>
                 </div>
                 {!isLoading && recipe && (
-                  // disable button after saving recipe
                   <button
-                    onClick={() => saveDrinkToLocalStorage(recipe)}
+                    onClick={() => {
+                      saveDrinkToLocalStorage(recipe);
+                      setIsSaved(true);
+                    }}
                     className='btn btn-success mt-2'
+                    disabled={isSaved}
                   >
                     Save Recipe
                   </button>
@@ -224,7 +242,7 @@ const AIBartender = () => {
             aria-label='close sidebar'
             className='drawer-overlay'
           ></label>
-          <ul className='menu p-4 w-80 min-h-full bg-base-200 text-base-content'>
+          <ul className='menu p-4 w-80 min-h-full bg-base-300 text-base-content'>
             <li className='my-2 text-lg'>
               <Link to='/ingredients'>
                 <CiBoxList size={22} />
@@ -253,31 +271,18 @@ const AIBartender = () => {
                 Settings
               </button>
             </li>
-            <dialog id='my_modal_1' className='modal'>
-              <div className='modal-box'>
-                <div className='flex justify-between items-center px-4'>
-                  <h3 className='font-bold text-lg'>Settings</h3>
-                  <form method='dialog'>
-                    <button className='btn btn-ghost'>
-                      <IoClose size={24} />
-                    </button>
-                  </form>
-                </div>
-                <BartenderSettings updateSettings={updateSettings} />
-              </div>
-            </dialog>
             <li>
               <details className='dropdown my-2 text-lg'>
                 <summary>
                   <MdPersonOutline size={22} />
                   Bartenders
                 </summary>
-                <ul className='p-2 mt-1 bg-base-100 rounded-xl border border-base-content'>
+                <ul className='p-2 mt-1 bg-base-200 rounded-xl border border-base-content'>
                   {bartenders.map((bartenderKey) => (
                     <li key={bartenderKey}>
                       <div className='w-full h-22 bg-base rounded-xl flex my-1'>
                         <div className='avatar flex-shrink-0'>
-                          <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
+                          <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-base-200 ring-offset-2'>
                             <img
                               src={BartenderInfo[bartenderKey].picture}
                               alt={bartenderKey}

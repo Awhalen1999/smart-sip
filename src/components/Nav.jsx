@@ -11,7 +11,7 @@ const Nav = () => {
   };
 
   return (
-    <div className='navbar  font-main font-medium'>
+    <div className='navbar font-main font-medium border-b-2 border-primary'>
       <div className='navbar-start'>
         <div className='dropdown'>
           <div tabIndex={0} role='button' className='btn btn-ghost lg:hidden'>
@@ -32,8 +32,13 @@ const Nav = () => {
           </div>
           <ul
             tabIndex={0}
-            className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'
+            className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-52'
           >
+            <li>
+              <Link to='/' className='btn btn-ghost'>
+                Home
+              </Link>
+            </li>
             <li>
               <Link to='/bartender' className='btn btn-ghost'>
                 Bartender
@@ -62,6 +67,11 @@ const Nav = () => {
       </div>
       <div className='navbar-center hidden lg:flex'>
         <ul className='menu menu-horizontal px-1'>
+          <li className='mx-1'>
+            <Link to='/' className='btn btn-ghost'>
+              Home
+            </Link>
+          </li>
           <li className='mx-1'>
             <Link to='/bartender' className='btn btn-ghost'>
               Bartender

@@ -4,13 +4,13 @@ import { FaChevronDown } from 'react-icons/fa';
 
 const PopularRecipes = () => {
   return (
-    <div className='p-4 space-y-4'>
+    <div className='px-10 space-y-4 h-screen'>
       {popularDrinks.map((drink, index) => (
-        <details key={index} className='collapse bg-neutral rounded-lg p-4'>
+        <details key={index} className='collapse bg-neutral rounded-lg p-2'>
           <summary className='collapse-title text-xl font-medium'>
             <div className='flex justify-between items-center w-full'>
               <div className='flex items-center'>
-                <span className='mr-4'>{drink.title}</span>{' '}
+                <span className='mr-4'>{drink.title}</span>
                 <FaChevronDown size={18} />
               </div>
             </div>
