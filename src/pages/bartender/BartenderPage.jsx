@@ -97,7 +97,7 @@ const AIBartender = () => {
 
   return (
     <div
-      className={`flex h-full w-screen overflow-scroll  ${
+      className={`flex flex-col h-full w-full overflow-auto ${
         hideBackground ? 'bg-neutral' : ''
       }`}
       style={
@@ -123,11 +123,11 @@ const AIBartender = () => {
           <BartenderSettings updateSettings={updateSettings} />
         </div>
       </dialog>
-      <div className='drawer lg:drawer-open font-main'>
+      <div className='drawer lg:drawer-open font-main flex-grow'>
         <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
-        <div className='drawer-content flex flex-col items-center justify-center'>
+        <div className='drawer-content flex flex-col items-center justify-start'>
           <div
-            className={`flex-grow w-full h-full  flex flex-col p-6 ${
+            className={`w-full flex flex-col p-6 overflow-auto ${
               hideBackground ? 'bg-black bg-opacity-75' : ''
             }`}
           >
@@ -244,7 +244,7 @@ const AIBartender = () => {
             aria-label='close sidebar'
             className='drawer-overlay'
           ></label>
-          <ul className='menu pl-2 pr-8 w-80 min-h-full bg-base-300 text-base-content'>
+          <ul className='menu w-80 h-full bg-base-300 text-base-content'>
             <li className='my-2 text-lg'>
               <Link to='/ingredients'>
                 <CiBoxList size={22} />
@@ -279,7 +279,7 @@ const AIBartender = () => {
                   <MdPersonOutline size={22} />
                   Bartenders
                 </summary>
-                <ul className='p-2 mt-1 bg-base-200 rounded-xl border border-base-content'>
+                <ul className='p-2 mt-1 bg-base-200 rounded-xl border border-base-content  mg:max-h-full lg:max-h-full max-h-[50vh] overflow-auto'>
                   {bartenders.map((bartenderKey) => (
                     <li key={bartenderKey}>
                       <div className='w-full h-22 bg-base rounded-xl flex my-1'>
