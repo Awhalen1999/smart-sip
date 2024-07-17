@@ -67,7 +67,7 @@ const BartenderSettings = ({ updateSettings }) => {
       {renderSetting(
         'hideBartenderImage',
         'Hide Bartender Image',
-        'Enable this option to hide the image of the AI bartender. By default, a charming image of the AI bartender is displayed, enhancing the visual appeal and personal connection to your cocktail creation journey.'
+        'Enable this option to hide the image of the AI bartender. By default, an image of the AI bartender is displayed, enhancing the visual appeal and personal connection to your cocktail creation journey.'
       )}
     </div>
   );
