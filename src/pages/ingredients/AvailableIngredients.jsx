@@ -74,7 +74,7 @@ const AvailableIngredients = () => {
       <div className='flex items-center'>
         <h2 className='text-2xl py-4'>{category}</h2>
         <button
-          className='ml-4 btn btn-ghost btn-sm'
+          className='ml-4 btn btn-ghost btn-sm btn-circle'
           onClick={() => handleAddItem(category)}
         >
           <IoAddOutline size={24} />

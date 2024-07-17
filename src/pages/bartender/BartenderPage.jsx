@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { MdMenuOpen, MdPersonOutline } from 'react-icons/md';
+import { MdMenuOpen } from 'react-icons/md';
 import { CiBoxList, CiReceipt } from 'react-icons/ci';
 import { FaRegStar } from 'react-icons/fa';
 import { IoSettingsOutline, IoClose } from 'react-icons/io5';
+import { FaChevronDown } from 'react-icons/fa';
 import BartenderInfo from './BartenderInfo';
 import BartenderSettings from './BartenderSettings';
 import {
@@ -127,20 +128,41 @@ const AIBartender = () => {
         <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
         <div className='drawer-content flex flex-col items-center justify-start'>
           <div
-            className={`w-full flex flex-col p-6 overflow-auto ${
+            className={`w-full h-full flex flex-col p-6 overflow-auto ${
               hideBackground ? 'bg-black bg-opacity-75' : ''
             }`}
           >
             <div className='flex items-center'>
               <label
                 htmlFor='my-drawer-2'
-                className='btn btn-ghost drawer-button lg:hidden mr-4'
+                className='btn btn-ghost border-black drawer-button lg:hidden mr-4 bg-black bg-opacity-70 text-white'
               >
                 <MdMenuOpen size={24} />
               </label>
-              <h2 className='text-xl font-bold text-white bg-black bg-opacity-65 rounded px-1'>
-                AI Bartender ({bartender})
-              </h2>
+              <div className='dropdown'>
+                <div
+                  tabIndex={0}
+                  role='button'
+                  className='btn text-lg border-black text-white bg-black bg-opacity-70'
+                >
+                  AI Bartender ({bartender}) <FaChevronDown />
+                </div>
+                <ul
+                  tabIndex={0}
+                  className='dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow mt-2 overflow-auto border-2 border-base-content'
+                >
+                  {bartenders.map((bartenderKey) => (
+                    <li key={bartenderKey}>
+                      <button
+                        onClick={() => setBartender(bartenderKey)}
+                        className='btn btn-ghost w-full text-left'
+                      >
+                        {bartenderKey}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
             <div className='mt-2'>
               <div className='flex items-center'>
@@ -231,7 +253,7 @@ const AIBartender = () => {
                     className='btn btn-success mt-2'
                     disabled={isSaved}
                   >
-                    Save Recipe
+                    {isSaved ? 'Saved!' : 'Save Recipe'}
                   </button>
                 )}
               </div>
@@ -272,39 +294,6 @@ const AIBartender = () => {
                 <IoSettingsOutline size={22} />
                 Settings
               </button>
-            </li>
-            <li>
-              <details className='dropdown my-2 text-lg'>
-                <summary>
-                  <MdPersonOutline size={22} />
-                  Bartenders
-                </summary>
-                <ul className='p-2 mt-1 bg-base-200 rounded-xl border border-base-content  mg:max-h-full lg:max-h-full max-h-[50vh] overflow-auto'>
-                  {bartenders.map((bartenderKey) => (
-                    <li key={bartenderKey}>
-                      <div className='w-full h-22 bg-base rounded-xl flex my-1'>
-                        <div className='avatar flex-shrink-0'>
-                          <div className='m-2 w-24 rounded-full ring ring-primary ring-offset-base-200 ring-offset-2'>
-                            <img
-                              src={BartenderInfo[bartenderKey].picture}
-                              alt={bartenderKey}
-                            />
-                          </div>
-                        </div>
-                        <div className='flex-grow flex flex-col justify-center items-start space-y-2 ml-4'>
-                          <h3 className='text-base-content'>{bartenderKey}</h3>
-                          <button
-                            onClick={() => setBartender(bartenderKey)}
-                            className='btn btn-primary'
-                          >
-                            Select
-                          </button>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </details>
             </li>
           </ul>
         </div>
