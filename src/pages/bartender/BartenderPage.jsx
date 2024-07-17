@@ -177,7 +177,9 @@ const AIBartender = () => {
                   </div>
                 )}
                 <div className='chat chat-start'>
-                  <div className='chat-bubble'>{initialPrompt}</div>
+                  <div className='chat-bubble chat-bubble-accent'>
+                    {initialPrompt}
+                  </div>
                 </div>
               </div>
             </div>
@@ -233,7 +235,7 @@ const AIBartender = () => {
                     </div>
                   )}
                   <div className='chat chat-start'>
-                    <div className='chat-bubble flex items-center justify-center'>
+                    <div className='chat-bubble chat-bubble-accent flex items-center justify-center'>
                       {isLoading ? (
                         <span className='loading loading-dots loading-lg'></span>
                       ) : (
