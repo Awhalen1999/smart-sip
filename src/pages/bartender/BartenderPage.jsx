@@ -143,7 +143,7 @@ const AIBartender = () => {
                 <div
                   tabIndex={0}
                   role='button'
-                  className='btn border-black text-white bg-black bg-opacity-70'
+                  className='btn border-black text-white bg-black bg-opacity-70 lg:text-lg md:text-lg'
                 >
                   AI Bartender ({bartender}) <FaChevronDown />
                 </div>
@@ -177,9 +177,7 @@ const AIBartender = () => {
                   </div>
                 )}
                 <div className='chat chat-start'>
-                  <div className='chat-bubble chat-bubble-accent'>
-                    {initialPrompt}
-                  </div>
+                  <div className='chat-bubble'>{initialPrompt}</div>
                 </div>
               </div>
             </div>
@@ -235,7 +233,7 @@ const AIBartender = () => {
                     </div>
                   )}
                   <div className='chat chat-start'>
-                    <div className='chat-bubble chat-bubble-accent font-tech flex items-center justify-center'>
+                    <div className='chat-bubble flex items-center justify-center'>
                       {isLoading ? (
                         <span className='loading loading-dots loading-lg'></span>
                       ) : (
@@ -250,7 +248,7 @@ const AIBartender = () => {
                       saveDrinkToLocalStorage(recipe);
                       setIsSaved(true);
                     }}
-                    className='btn btn-success mt-2'
+                    className='btn btn-success mt-2 font-semibold'
                     disabled={isSaved}
                   >
                     {isSaved ? 'Saved!' : 'Save Recipe'}
