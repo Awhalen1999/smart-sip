@@ -143,7 +143,7 @@ const AIBartender = () => {
                 <div
                   tabIndex={0}
                   role='button'
-                  className='btn text-lg border-black text-white bg-black bg-opacity-70'
+                  className='btn border-black text-white bg-black bg-opacity-70'
                 >
                   AI Bartender ({bartender}) <FaChevronDown />
                 </div>
