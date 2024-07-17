@@ -80,7 +80,7 @@ const AvailableIngredients = () => {
           <IoAddOutline size={24} />
         </button>
       </div>
-      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4'>
+      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-2'>
         {[...items, ...(customItems[category] || [])]
           .filter((item) =>
             item.toLowerCase().includes(searchTerm.toLowerCase())
@@ -137,7 +137,7 @@ const AvailableIngredients = () => {
           aria-label='close sidebar'
           className='drawer-overlay'
         ></label>
-        <ul className='menu p-4 w-80 bg-base-200 text-base-content'>
+        <ul className='menu p-4 w-80 bg-base-200 text-base-content h-full'>
           {categories.map((category) => (
             <li
               key={category}

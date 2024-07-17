@@ -26,7 +26,7 @@ const SelectedIngredients = () => {
   const renderCategoryItems = (category, items) => (
     <div key={category}>
       <h2 className='text-2xl py-4'>{category}</h2>
-      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4'>
+      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-2'>
         {[...items, ...(customItems[category] || [])]
           .filter((item) => checkedItems.includes(item))
           .map((item, index) => (

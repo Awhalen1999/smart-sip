@@ -22,7 +22,7 @@ const IngredientsPage = () => {
   );
 
   return (
-    <div className='py-4'>
+    <div className='pt-4'>
       <ul className='ml-1 flex flex-wrap text-sm font-medium text-center border-b border-accent'>
         {renderTabButton('available', 'Available Ingredients')}
         {renderTabButton('selected', 'Selected Ingredients')}
