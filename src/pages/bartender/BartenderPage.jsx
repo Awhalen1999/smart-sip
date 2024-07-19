@@ -218,7 +218,7 @@ const AIBartender = () => {
                 }}
                 className='btn btn-primary '
               >
-                Random drink / Quick Start
+                Random drink / Quick start
               </button>
             </div>
             {isLoading || recipe ? (
