@@ -15,13 +15,13 @@ export async function registerUser(username, email, password) {
 
     if (!response.ok) {
       const message = await response.json();
-      console.error('Error response from server:', message); // Log the error response from server
+      console.error('Error response from server:', message);
       throw new Error(message.message);
     }
 
     const data = await response.json();
-    console.log('User registered successfully:', data); // Log successful registration
-    return data; // Return the registered user data
+    console.log('User registered successfully:', data);
+    return data;
   } catch (error) {
     console.error('Error registering user:', error);
     throw error;
@@ -40,15 +40,14 @@ export async function loginUser(email, password) {
 
     if (!response.ok) {
       const message = await response.json();
-      console.error('Error response from server:', message); // Log the error response from server
+      console.error('Error response from server:', message);
       throw new Error(message.message);
     }
 
     const data = await response.json();
-    console.log('User logged in successfully:', data); // Log successful login
-    // Add more console logs to see specific user data if needed
+    console.log('User logged in successfully:', data);
     console.log('Logged in user data:', data);
-    return data; // You may return the token or user data as needed
+    return data;
   } catch (error) {
     console.error('Error logging in:', error);
     throw error;
