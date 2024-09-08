@@ -1,7 +1,7 @@
 const apiUrl =
   import.meta.env.MODE === 'production'
     ? 'https://smart-sip-backend-production.up.railway.app'
-    : 'http://localhost:3000';
+    : 'http://localhost:8787';
 
 export async function registerUser(username, email, password) {
   try {
