@@ -82,18 +82,13 @@ const AIBartender = () => {
       Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
     };
 
-    try {
-      const response = await axios.post(
-        'https://api.openai.com/v1/chat/completions',
-        data,
-        { headers }
-      );
-      setRecipe(response.data.choices[0].message.content);
-    } catch (error) {
-      console.error('Error fetching recipe:', error);
-    } finally {
-      setIsLoading(false);
-    }
+    axios
+      .post('https://api.openai.com/v1/chat/completions', data, { headers })
+      .then((response) => {
+        const message = response.data.choices[0].message.content;
+        setRecipe(message);
+        setIsLoading(false);
+      });
   };
 
   return (
