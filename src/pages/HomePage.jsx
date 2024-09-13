@@ -34,7 +34,7 @@ const HomePage = () => {
   return (
     <div className='font-main'>
       <div>
-        {/* hero... */}
+        {/* hero */}
         <div
           className='hero min-h-screen'
           style={{
