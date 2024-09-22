@@ -3,6 +3,7 @@ const apiUrl =
     ? 'https://smart-sip-backend-production.up.railway.app'
     : 'http://localhost:8787';
 
+// function to get signup user
 export async function registerUser(username, email, password) {
   try {
     const response = await fetch(`${apiUrl}/users/signup`, {
@@ -29,6 +30,7 @@ export async function registerUser(username, email, password) {
   }
 }
 
+// function to log in user
 export async function loginUser(email, password) {
   try {
     const response = await fetch(`${apiUrl}/users/login`, {
@@ -56,11 +58,12 @@ export async function loginUser(email, password) {
   }
 }
 
+// function to log out user
 export async function logoutUser() {
   try {
     const response = await fetch(`${apiUrl}/users/logout`, {
       method: 'POST',
-      credentials: 'include', // Include credentials to ensure session cookie is sent
+      credentials: 'include',
     });
 
     if (!response.ok) {
@@ -74,6 +77,29 @@ export async function logoutUser() {
   } catch (error) {
     console.error('Error logging out:', error);
     throw error;
+  }
+}
+
+// Function to authenticate the user based on the sessionId cookie
+export async function authUser() {
+  try {
+    const response = await fetch(`${apiUrl}/users/profile`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      const message = await response.json();
+      console.error('API: authUser error', message);
+      throw new Error(message.message);
+    }
+
+    const data = await response.json();
+    console.log('Authenticated user:', data);
+    return data.user;
+  } catch (error) {
+    console.error('Error authenticating user:', error);
+    return null; // Return null if authentication fails
   }
 }
 

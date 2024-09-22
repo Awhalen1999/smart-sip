@@ -10,27 +10,61 @@ import PopularRecipes from './pages/popular-recipes/PopularRecipes';
 import Nav from './components/Nav';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import ProtectedRoute from './utils/protectedRoute';
+import { AuthProvider } from './utils/authProvider';
+import UserPage from './pages/userPage';
 
 const root = document.getElementById('root');
 if (!root) throw new Error('No root element found');
 
 createRoot(root).render(
   <React.StrictMode>
-    <Router basename='/smart-sip/'>
-      <div className='app-container'>
-        <Nav />
-        <div className='content-container'>
-          <Routes>
-            <Route path='/' element={<HomePage />} />
-            <Route path='/bartender' element={<BartenderPage />} />
-            <Route path='/ingredients' element={<IngredientsPage />} />
-            <Route path='/saved-recipes' element={<SavedRecipes />} />
-            <Route path='/popular-recipes' element={<PopularRecipes />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/signup' element={<Signup />} />
-          </Routes>
+    <AuthProvider>
+      <Router basename='/smart-sip/'>
+        <div className='app-container'>
+          <Nav />
+          <div className='content-container'>
+            <Routes>
+              <Route path='/' element={<HomePage />} />
+              <Route
+                path='/bartender'
+                element={
+                  <ProtectedRoute>
+                    <BartenderPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path='/ingredients'
+                element={
+                  <ProtectedRoute>
+                    <IngredientsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path='/saved-recipes'
+                element={
+                  <ProtectedRoute>
+                    <SavedRecipes />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path='/user'
+                element={
+                  <ProtectedRoute>
+                    <UserPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path='/popular-recipes' element={<PopularRecipes />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/signup' element={<Signup />} />
+            </Routes>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </AuthProvider>
   </React.StrictMode>
 );

@@ -1,25 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { IoClose } from 'react-icons/io5';
-import { loginUser } from '../utils/api';
+import { useAuth } from '../utils/authProvider'; 
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState(null); //add later
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { login, user } = useAuth(); 
 
   const handleLogin = async (event) => {
     event.preventDefault();
 
+    // Check if all fields are filled
+    if (!email || !password) {
+      setError('Email and password are required');
+      return;
+    }
+
     try {
-      await loginUser(email, password);
-      navigate('/');
+      await login(email, password); 
     } catch (error) {
       setError('Invalid email or password');
     }
   };
+
+  // Handle navigation when the user is authenticated
+  useEffect(() => {
+    if (user) {
+      navigate('/'); // Redirect to home page after successful login
+    }
+  }, [user, navigate]);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);

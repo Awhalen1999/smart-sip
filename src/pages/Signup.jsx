@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { IoClose } from 'react-icons/io5';
-import { registerUser } from '../utils/api';
+import { useAuth } from '../utils/authProvider';
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -9,23 +9,41 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState(null); //add later
+  const [error, setError] = useState(null);
+  const { signup, user } = useAuth();
   const navigate = useNavigate();
 
   const handleSignup = async (event) => {
     event.preventDefault();
+
+    // Check if all fields are filled
+    if (!username || !email || !password || !confirmPassword) {
+      setError('All fields are required');
+      return;
+    }
+
+    // Check if passwords match
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
 
+    // Clear any previous error messages
+    setError(null);
+
     try {
-      await registerUser(username, email, password);
-      navigate('/'); // Redirect to the home page or login page
+      await signup(username, email, password); // Call signup from AuthProvider
     } catch (error) {
       setError('Failed to create an account');
     }
   };
+
+  // Handle navigation after signup is successful
+  useEffect(() => {
+    if (user) {
+      navigate('/'); // Navigate to home page
+    }
+  }, [user, navigate]); // Only triggers when 'user' state changes
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
