@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { authUser, loginUser, registerUser, logoutUser } from '../utils/api';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { authUser, loginUser, registerUser, logoutUser } from "../utils/api";
 
 export const AuthContext = createContext();
 
@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
         const authenticatedUser = await authUser();
         setUser(authenticatedUser);
       } catch (error) {
-        console.error('Error authenticating user:', error);
+        console.error("Error authenticating user:", error);
         setUser(null);
       } finally {
         setLoading(false);
@@ -27,9 +27,8 @@ export const AuthProvider = ({ children }) => {
     try {
       const loggedInUser = await loginUser(email, password);
       setUser(loggedInUser);
-      console.log('User state after login:', loggedInUser);
     } catch (error) {
-      console.error('Login failed:', error);
+      console.error("Login failed:", error);
     }
   };
 
@@ -37,9 +36,8 @@ export const AuthProvider = ({ children }) => {
     try {
       const registeredUser = await registerUser(username, email, password);
       setUser(registeredUser);
-      console.log('User state after signup:', registeredUser);
     } catch (error) {
-      console.error('Signup failed:', error);
+      console.error("Signup failed:", error);
     }
   };
 
@@ -47,13 +45,10 @@ export const AuthProvider = ({ children }) => {
     try {
       await logoutUser();
       setUser(null);
-      console.log('User state after logout:', null);
     } catch (error) {
-      console.error('Logout failed:', error);
+      console.error("Logout failed:", error);
     }
   };
-
-  console.log('Current user state:', user);
 
   return (
     <AuthContext.Provider value={{ user, loading, login, signup, logout }}>
