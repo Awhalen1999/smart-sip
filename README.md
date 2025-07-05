@@ -1,6 +1,6 @@
 # SmartSip AI 🍹 🧠
 
-## Live Demo: [SmartSip](https://awhalen1999.github.io/smart-sip/)
+## Live Demo: [SmartSip](https://awhalen1999.github.io/smart-sip/) (DB service no longer running)
 
 I created this project for people who **LOVE** discovering new drinks but **HATE** the guesswork and trial-and-error process. This web app uses AI to help you find and create amazing beverages based on your preferences. You can save your favorite recipes and keep track of your ingredients, using them in new recipes. With 10 different bartender personas to choose from, you can enjoy a customized experience each time. Whether you're after something classic or adventurous, SmartSip AI makes exploring new drinks fun and easy.
 
